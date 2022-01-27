@@ -1,11 +1,9 @@
-import { GlobalStyle } from "./style/global";
-
 function App() {
   return (
     <>
-    <GlobalStyle/>
+      <div>ge</div>
     </>
-  )
+  );
 }
 
 export default App;

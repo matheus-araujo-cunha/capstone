@@ -1,5 +1,4 @@
 import { createGlobalStyle, css } from "styled-components";
-// import FontCoves from "../assets/coves-bold.otf";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -22,11 +21,19 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	font-family:"Coves-Light", "sans-serif";
 }
 
-/* @font-face {
-	font-family: "Font Coves";
-} */
+@font-face {
+    font-family: 'Coves-Light';
+    src:url('Coves-Light.ttf.woff') format('woff'),
+        url('Coves-Light.ttf.svg#Coves-Light') format('svg'),
+        url('Coves-Light.ttf.eot'),
+        url('Coves-Light.ttf.eot?#iefix') format('embedded-opentype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 button{
     cursor:pointer;
