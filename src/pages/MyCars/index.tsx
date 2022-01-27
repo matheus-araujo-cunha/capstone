@@ -1,7 +1,7 @@
 import { Header } from "../../components/Header";
 import { Container } from "./styles";
 
-export const Dashboard = () => {
+export const MyCars = () => {
   return (
     <Container>
       <Header />

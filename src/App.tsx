@@ -1,9 +1,23 @@
-import { Dashboard } from "./pages/Dashboard";
+import { ToastContainer } from "react-toastify";
+import { Routes } from "./routes";
+
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <>
-      <Dashboard />
+      <Routes />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 }
