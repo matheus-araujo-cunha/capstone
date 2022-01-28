@@ -10,7 +10,7 @@ export const Form = styled.form`
 
   @media screen and (min-width: 768px) {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-start;
     height: 435px;
     margin-top: 20px;
@@ -21,6 +21,7 @@ export const SectionLeft = styled.section`
   display: flex;
   width: 40%;
   flex-direction: column;
+  margin-left: 30px;
   gap: 30px;
   align-items: center;
 

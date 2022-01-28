@@ -13,10 +13,22 @@ import { Button } from "../Button";
 import { DivButton, Form, SectionLeft, SectionRight } from "./styles";
 
 import CloseIcon from "@mui/icons-material/Close";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 interface ModalRegistrationCarProps {
   handleClose: () => void;
   open: boolean;
+}
+
+interface DataRegisterCar {
+  name: string;
+  modelo: string;
+  description: string;
+  year: string;
+  km: string;
+  file: any;
 }
 
 export const ModalRegistrationCar = ({
@@ -24,6 +36,20 @@ export const ModalRegistrationCar = ({
   open,
 }: ModalRegistrationCarProps) => {
   const isWideVersion = UseMediaQuery("(min-width:768px)");
+
+  const registerSchema = yup.object().shape({
+    name: yup.string().required("Campo obrigatório"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<DataRegisterCar>({
+    resolver: yupResolver(registerSchema),
+  });
+
+  const onSubmit = (data: DataRegisterCar) => console.log(data);
 
   return (
     <Dialog
@@ -51,18 +77,30 @@ export const ModalRegistrationCar = ({
       </DialogTitle>
 
       <DialogContent dividers>
-        <Form>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           {isWideVersion ? (
             <>
               <SectionLeft>
-                <TextField fullWidth label="Nome" />
-                <TextField fullWidth label="Modelo" />
-                <TextField fullWidth label="Descrição" />
-                <TextField fullWidth label="Ano de fabricação" />
+                <TextField fullWidth label="Nome" {...register("name")} />
+                <TextField fullWidth label="Modelo" {...register("modelo")} />
+                <TextField
+                  fullWidth
+                  label="Descrição"
+                  {...register("description")}
+                />
+                <TextField
+                  fullWidth
+                  label="Ano de fabricação"
+                  {...register("year")}
+                />
               </SectionLeft>
               <SectionRight>
-                <TextField fullWidth label="Quilômetros rodados" />
-                <TextField fullWidth type="file" />
+                <TextField
+                  fullWidth
+                  label="Quilômetros rodados"
+                  {...register("km")}
+                />
+                <TextField fullWidth type="file" {...register("file")} />
                 <DivButton>
                   <Button type="submit">Enviar</Button>
                 </DivButton>
@@ -76,7 +114,7 @@ export const ModalRegistrationCar = ({
               <TextField label="Ano de fabricação" />
               <TextField label="Quilômetros rodados" />
               <TextField type="file" />
-              <Button autoFocus onClick={handleClose}>
+              <Button type="submit" autoFocus onClick={handleClose}>
                 Enviar
               </Button>
             </>
