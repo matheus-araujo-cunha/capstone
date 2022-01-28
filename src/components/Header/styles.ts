@@ -62,6 +62,7 @@ export const MyCars = styled.button`
   width: 50%;
   padding: 15px 0;
   color: white;
+  font-family: "Helvetica", "Roboto";
   font-weight: 500;
   font-size: 1rem;
   background-color: var(--grey-500);
@@ -94,9 +95,9 @@ export const IconSection = styled.div`
   svg {
     cursor: pointer;
     color: var(--grey-0);
-    min-height: 40px;
-    min-width: 40px;
-    max-width: 40px;
-    max-height: 40px;
+    min-height: 30px;
+    min-width: 30px;
+    max-width: 35px;
+    max-height: 35px;
   }
 `;
