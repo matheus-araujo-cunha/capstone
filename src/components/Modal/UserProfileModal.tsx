@@ -1,6 +1,5 @@
 import {
   Button,
-  TextField,
   Dialog,
   DialogActions,
   DialogContent,
@@ -20,25 +19,14 @@ const UserProfileModal = ({
   return (
     <>
       <Dialog open={openProfileModal} onClose={handleCloseProfileModal}>
-        <DialogTitle>Subscribe</DialogTitle>
+        <DialogTitle>Meu perfil</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
+            Faça as alterações que achar necessário e depois clique em salvar.
           </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseProfileModal}>Cancel</Button>
-          <Button onClick={handleCloseProfileModal}>Subscribe</Button>
+          <Button onClick={handleCloseProfileModal}>Fechar</Button>
         </DialogActions>
       </Dialog>
     </>
