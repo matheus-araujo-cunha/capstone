@@ -3,9 +3,11 @@ import { Box } from "@mui/material";
 import { MenuHeader } from "./Menu";
 import { MobileMenu } from "./MobileMenu";
 import { AppBarHeader } from "./AppBarHeader";
+import { UserProfileModal } from "../UserProfileModal";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [openProfileModal, setOpenProfileModal] = useState(false);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
 
@@ -29,6 +31,14 @@ const Header = () => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleOpenProfileModal = () => {
+    setOpenProfileModal(true);
+  };
+
+  const handleCloseProfileModal = () => {
+    setOpenProfileModal(false);
+  };
+
   const menuId = "account-menu";
   const mobileMenuId = "account-menu-mobile";
 
@@ -40,23 +50,25 @@ const Header = () => {
         mobileMenuId={mobileMenuId}
         menuId={menuId}
       />
-      {
-        <MobileMenu
-          mobileMenuId={mobileMenuId}
-          handleMobileMenuClose={handleMobileMenuClose}
-          handleProfileMenuOpen={handleProfileMenuOpen}
-          isMobileMenuOpen={isMobileMenuOpen}
-          mobileMoreAnchorEl={mobileMoreAnchorEl}
-        />
-      }
-      {
-        <MenuHeader
-          anchorEl={anchorEl}
-          handleMenuClose={handleMenuClose}
-          isMenuOpen={isMenuOpen}
-          menuId={menuId}
-        />
-      }
+      <MobileMenu
+        mobileMenuId={mobileMenuId}
+        handleMobileMenuClose={handleMobileMenuClose}
+        handleProfileMenuOpen={handleProfileMenuOpen}
+        isMobileMenuOpen={isMobileMenuOpen}
+        mobileMoreAnchorEl={mobileMoreAnchorEl}
+        handleOpenProfileModal={handleOpenProfileModal}
+      />
+      <MenuHeader
+        anchorEl={anchorEl}
+        handleMenuClose={handleMenuClose}
+        isMenuOpen={isMenuOpen}
+        menuId={menuId}
+        handleOpenProfileModal={handleOpenProfileModal}
+      />
+      <UserProfileModal
+        openProfileModal={openProfileModal}
+        handleCloseProfileModal={handleCloseProfileModal}
+      />
     </Box>
   );
 };

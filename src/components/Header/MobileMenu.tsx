@@ -3,7 +3,13 @@ import {
   Mail as MailIcon,
   Notifications as NotificationsIcon,
 } from "@mui/icons-material";
-import { Menu, MenuItem, IconButton, Badge } from "@mui/material";
+import {
+  Menu,
+  MenuItem,
+  Typography as Text,
+  IconButton,
+  Badge,
+} from "@mui/material";
 
 interface MobileMenuProps {
   mobileMoreAnchorEl: HTMLElement | null;
@@ -11,6 +17,7 @@ interface MobileMenuProps {
   isMobileMenuOpen: boolean;
   handleMobileMenuClose: () => void;
   handleProfileMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
+  handleOpenProfileModal: () => void;
 }
 
 const MobileMenu = ({
@@ -19,6 +26,7 @@ const MobileMenu = ({
   isMobileMenuOpen,
   handleMobileMenuClose,
   handleProfileMenuOpen,
+  handleOpenProfileModal,
 }: MobileMenuProps) => {
   return (
     <Menu
@@ -42,7 +50,7 @@ const MobileMenu = ({
             <MailIcon />
           </Badge>
         </IconButton>
-        <p>Mensagens</p>
+        <Text>Mensagens</Text>
       </MenuItem>
       <MenuItem>
         <IconButton
@@ -54,7 +62,7 @@ const MobileMenu = ({
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <p>Notificações</p>
+        <Text>Notificações</Text>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -66,7 +74,7 @@ const MobileMenu = ({
         >
           <AccountCircle />
         </IconButton>
-        <p>Perfil</p>
+        <Text onClick={handleOpenProfileModal}>Perfil</Text>
       </MenuItem>
     </Menu>
   );

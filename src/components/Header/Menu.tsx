@@ -5,6 +5,7 @@ interface MenuProps {
   menuId: string;
   isMenuOpen: boolean;
   handleMenuClose: () => void;
+  handleOpenProfileModal: () => void;
 }
 
 const MenuHeader = ({
@@ -12,6 +13,7 @@ const MenuHeader = ({
   menuId,
   isMenuOpen,
   handleMenuClose,
+  handleOpenProfileModal,
 }: MenuProps) => {
   return (
     <MenuMaterial
@@ -29,7 +31,7 @@ const MenuHeader = ({
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Meu perfil</MenuItem>
+      <MenuItem onClick={handleOpenProfileModal}>Meu perfil</MenuItem>
       <MenuItem onClick={handleMenuClose}>Configuração</MenuItem>
       <MenuItem onClick={handleMenuClose}>Sair</MenuItem>
     </MenuMaterial>
