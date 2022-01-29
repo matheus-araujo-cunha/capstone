@@ -1,3 +1,9 @@
+import { Header } from "../../components/Header";
+
 export const Login = () => {
-  return <div></div>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 };
