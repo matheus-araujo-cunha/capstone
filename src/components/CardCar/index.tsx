@@ -1,11 +1,4 @@
-import {
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardActions, CardContent, Typography } from "@mui/material";
 import { Button } from "../Button";
 import { CardButton, Container, Image } from "./styles";
 import UseMediaQuery from "@mui/material/useMediaQuery";
@@ -21,9 +14,9 @@ export const CardCar = ({ myCars, handleOpenDetail }: CardCarProps) => {
   return (
     <Card
       sx={{
-        width: isWideVersion ? "60%" : "100%",
-        borderRadius: "33px",
-        boxShadow: " 0 0 0 2px",
+        width: isWideVersion ? "30%" : "100%",
+        borderRadius: "25px",
+        boxShadow: " 0 0 0 1px",
         backgroundColor: "#F4F5F6",
         display: "flex",
         flexDirection: "column",

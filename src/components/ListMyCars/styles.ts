@@ -10,4 +10,11 @@ export const Container = styled.ul`
   /* justify-content: space-around; */
   align-items: center;
   width: 80%;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 30px;
+  }
 `;

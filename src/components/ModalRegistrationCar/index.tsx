@@ -24,11 +24,11 @@ interface ModalRegistrationCarProps {
 
 interface DataRegisterCar {
   name: string;
-  modelo: string;
+  model: string;
   description: string;
   year: string;
   km: string;
-  file: any;
+  img: any;
 }
 
 export const ModalRegistrationCar = ({
@@ -82,7 +82,7 @@ export const ModalRegistrationCar = ({
             <>
               <SectionLeft>
                 <TextField fullWidth label="Nome" {...register("name")} />
-                <TextField fullWidth label="Modelo" {...register("modelo")} />
+                <TextField fullWidth label="Modelo" {...register("model")} />
                 <TextField
                   fullWidth
                   label="Descrição"
@@ -100,7 +100,7 @@ export const ModalRegistrationCar = ({
                   label="Quilômetros rodados"
                   {...register("km")}
                 />
-                <TextField fullWidth type="file" {...register("file")} />
+                <TextField fullWidth type="img" {...register("img")} />
                 <DivButton>
                   <Button type="submit">Enviar</Button>
                 </DivButton>
@@ -113,7 +113,7 @@ export const ModalRegistrationCar = ({
               <TextField label="Descrição" />
               <TextField label="Ano de fabricação" />
               <TextField label="Quilômetros rodados" />
-              <TextField type="file" />
+              <TextField type="img" />
               <Button type="submit" autoFocus onClick={handleClose}>
                 Enviar
               </Button>
