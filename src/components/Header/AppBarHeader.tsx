@@ -15,6 +15,10 @@ import {
   Badge,
 } from "@mui/material";
 
+import { useHistory, useParams } from "react-router-dom";
+
+import UseMediaQuery from "@mui/material/useMediaQuery";
+
 interface AppBarProps {
   menuId: string;
   handleProfileMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
@@ -28,10 +32,18 @@ const AppBarHeader = ({
   mobileMenuId,
   handleMobileMenuOpen,
 }: AppBarProps) => {
+  const isWideVersion = UseMediaQuery("(min-width:768px)");
+
+  const history = useHistory();
+
+  const {
+    location: { pathname },
+  } = history;
+
   return (
     <MaterialAppBar position="static">
       <Toolbar sx={{ backgroundColor: "#462A71" }}>
-        <IconButton
+        {/* <IconButton
           size="large"
           edge="start"
           color="inherit"
@@ -39,18 +51,88 @@ const AppBarHeader = ({
           sx={{ mr: 2 }}
         >
           <MenuIcon />
-        </IconButton>
+        </IconButton> */}
         <Typography
           variant="h5"
           fontWeight="bold"
           noWrap
           component="div"
           color="secondary"
-          sx={{ display: { xs: "none", sm: "block" } }}
+          sx={{ display: { xs: "none", sm: "block" }, marginRight: "10px" }}
         >
           Kenzie Car Rental
         </Typography>
-        <Box sx={{ flexGrow: 1 }} />
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "64px",
+          }}
+        >
+          <Box
+            sx={{
+              backgroundColor: "#FA6300",
+              padding: "0 10px",
+              boxSizing: "border-box",
+              display: "flex",
+              color: "white",
+              borderRadius: "10px",
+              justifyContent: "center",
+              alignItems: "center",
+              height: isWideVersion ? "60%" : "70%",
+              gap: 2,
+              width: isWideVersion ? "50%" : "90%",
+            }}
+          >
+            <Box
+              component="button"
+              onClick={() => history.push("/myCars")}
+              sx={{
+                height: "35px",
+                // minWidth: "80px",
+                maxWidth: "300px",
+                borderRadius: "33px",
+                color: "white",
+                padding: "2px 20px",
+                backgroundColor: pathname === "/myCars" ? "#37404E" : "inherit",
+                fontWeight: "bold",
+                border: "none",
+                boxSizing: "border-box",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+            >
+              Meus Carros
+            </Box>
+
+            <Box
+              component="button"
+              onClick={() => history.push("/searchCars")}
+              sx={{
+                height: "35px",
+                // minWidth: "80px",
+                maxWidth: "300px",
+                borderRadius: "33px",
+                padding: "2px 20px",
+                backgroundColor:
+                  pathname === "/searchCars" ? "#37404E" : "inherit",
+                color: "white",
+                fontWeight: "bold",
+                border: "none",
+                boxSizing: "border-box",
+
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+            >
+              Procurar Carros
+            </Box>
+          </Box>
+        </Box>
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <IconButton
             size="large"
@@ -63,20 +145,12 @@ const AppBarHeader = ({
           </IconButton>
           <IconButton
             size="large"
-            aria-label="show 17 new notifications"
-            color="inherit"
-          >
-            <Badge badgeContent={17} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton
-            size="large"
             edge="end"
             aria-label="account of current user"
             aria-controls={menuId}
             aria-haspopup="true"
             onClick={handleProfileMenuOpen}
+            sx={{ color: "white" }}
           >
             <AccountCircle />
           </IconButton>

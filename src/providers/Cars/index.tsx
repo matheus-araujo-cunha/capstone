@@ -114,6 +114,35 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
     [cars]
   );
 
+  const findCar = useCallback(
+    async (nameCar: string, accessToken: string, userId: number) => {
+      const response = await api.get(
+        `/cars?name_like=${nameCar}&userId=${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      setCars(response.data);
+    },
+    []
+  );
+
+  const findMyCar = useCallback(
+    async (nameMyCar: string, accessToken: string) => {
+      const response = await api.get(`/cars?name_like=${nameMyCar}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      setMyCars(response.data);
+    },
+    []
+  );
+
   const updateCar = useCallback(
     async (data: Car, accessToken: string, userId: number) => {
       await api
