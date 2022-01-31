@@ -22,6 +22,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 	font-family:"Coves-Light", "sans-serif";
+	box-sizing:border-box;
 }
 
 @font-face {
@@ -40,19 +41,16 @@ button{
 }
 
 :root {
-	--red:"#E60000";
-	--white:"#ffffff";
-	--color-primary:"#462A71";
-	--color-secondary:"#FA6300";
-	--color-tertiary:"#FFCF00";
-	--grey-600:"#333333";
-	--grey-500:"#828282";
-	--grey-10:"#F4F5F6";
-	--grey-0:"#F5F5F5";
-	--green:"#168821";
-	--blue:"#155BCB";
-
-
-
+	--red:#E60000;
+	--white:#ffffff;
+	--color-primary:#462A71;
+	--color-secondary:#FA6300;
+	--color-tertiary:#FFCF00;
+	--grey-600:#333333;
+	--grey-500:#37404E;
+	--grey-10:#F4F5F6;
+	--grey-0:#F5F5F5;
+	--green:#168821;
+	--blue:#155BCB;
 }
 `;
