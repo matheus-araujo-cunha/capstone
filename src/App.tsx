@@ -1,7 +1,11 @@
+import Login from "./pages/Login";
+
 function App() {
   return (
     <>
-      <div>ge</div>
+      <div>
+        <Login />
+      </div>
     </>
   );
 }
