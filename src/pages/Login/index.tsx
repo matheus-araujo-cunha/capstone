@@ -21,6 +21,9 @@ interface SignInCredentials {
 }
 
 const Login = () => {
+  const history = useHistory();
+  // const { signIn } = useAuth();
+
   const formSchema = yup.object().shape({
     email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
     password: yup.string().required("Senha obrigatória"),
@@ -71,18 +74,17 @@ const Login = () => {
             <Error>
               {errors.email?.message && <span>{errors.password?.message}</span>}
             </Error>
-            <Button></Button>
+            <Button type="submit" color="true">
+              Logar
+            </Button>
             <Cade>Não possui conta? Cadastre-se!</Cade>
-            <Button
-            // type="submit"
-            // onClick={() => history.push("/signup")}
-            // text={"Cadastre-se"}
-            ></Button>
+            <Button onClick={() => history.push("/signup")}>
+              Ir para cadastro
+            </Button>
           </div>
         </Form>
       </Container>
     </Content>
-
   );
 };
 export default Login;
