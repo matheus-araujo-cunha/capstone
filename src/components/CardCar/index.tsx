@@ -5,10 +5,15 @@ import UseMediaQuery from "@mui/material/useMediaQuery";
 
 interface CardCarProps {
   myCars?: boolean;
-  handleOpenDetail: () => void;
+  handleOpenDetail?: () => void;
+  handleOpenKnowMore?: () => void;
 }
 
-export const CardCar = ({ myCars, handleOpenDetail }: CardCarProps) => {
+export const CardCar = ({
+  myCars,
+  handleOpenDetail,
+  handleOpenKnowMore,
+}: CardCarProps) => {
   const isWideVersion = UseMediaQuery("(min-width:768px)");
 
   return (
@@ -49,7 +54,7 @@ export const CardCar = ({ myCars, handleOpenDetail }: CardCarProps) => {
             Detalhes
           </CardButton>
         ) : (
-          <CardButton> Saiba mais </CardButton>
+          <CardButton onClick={handleOpenKnowMore}> Saiba mais </CardButton>
         )}
       </CardActions>
     </Card>

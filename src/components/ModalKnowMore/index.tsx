@@ -1,26 +1,22 @@
 import {
   Box,
-  CardMedia,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Paper,
   Typography,
 } from "@mui/material";
-
-import UseMediaQuery from "@mui/material/useMediaQuery";
 import { Button } from "../Button";
-
+import UseMediaQuery from "@mui/material/useMediaQuery";
 import CloseIcon from "@mui/icons-material/Close";
 
-interface ModalDetailCarProps {
+interface ModalKnowMoreProps {
   open: boolean;
   handleClose: () => void;
 }
 
-export const ModalDetailCar = ({ open, handleClose }: ModalDetailCarProps) => {
+export const ModalKnowMore = ({ open, handleClose }: ModalKnowMoreProps) => {
   const isWideVersion = UseMediaQuery("(min-width: 768px)");
 
   return (
@@ -59,11 +55,11 @@ export const ModalDetailCar = ({ open, handleClose }: ModalDetailCarProps) => {
           display: "flex",
           justifyContent: "space-evenly",
           flexDirection: isWideVersion ? "row" : "column",
-          gap: isWideVersion ? "0" : "5px",
+          gap: isWideVersion ? "0" : "10px",
         }}
       >
         <img
-          src="https://quatrorodas.abril.com.br/wp-content/uploads/2020/09/Kombi-modelo-1959-vers%C3%A3o-luxo-da-Volkswagen-pertencente-a-Francisco-Varca-J%C3%BAni_2_2.jpg?quality=70&strip=info"
+          src="https://2img.net/h/oi62.tinypic.com/dqr6l5.jpg"
           alt="carro"
           style={{
             width: isWideVersion ? "50%" : "100%",
@@ -80,32 +76,72 @@ export const ModalDetailCar = ({ open, handleClose }: ModalDetailCarProps) => {
             width: isWideVersion ? "45%" : "100%",
             boxSizing: "border-box",
             padding: "10px 20px",
-            fontFamily: "sans-serif",
             borderRadius: "8px",
           }}
         >
-          <Typography>Volkswagen Kombi</Typography>
-          <Typography>Ano - 2000</Typography>
+          <Typography>Chevrolet Corsa 2.0</Typography>
+          <Typography>Ano - 2018</Typography>
           <Typography>KM - 80.000</Typography>
           <Typography>
             1.4 MI STD 8V FLEX 3P MANUAL 1.4 MI STD 8V FLEX 3P MANUAL
           </Typography>
         </Paper>
+
+        {!isWideVersion && (
+          <Paper
+            elevation={15}
+            sx={{
+              width: "100%",
+              padding: "10px 20px",
+              backgroundColor: "#FA6300",
+              borderRadius: "8px",
+              color: "white",
+              //   minHeight: "50px",
+            }}
+          >
+            <Typography fontSize="15px" fontWeight="bold">
+              Proprietário :
+            </Typography>
+            <Typography fontWeight="bold">Fulano de tal</Typography>
+            <Typography fontWeight="bold">São Paulo</Typography>
+          </Paper>
+        )}
       </DialogContent>
+
       <DialogActions
         sx={{
-          marginTop: isWideVersion ? "40px" : "0px",
+          marginTop: isWideVersion ? "10px" : "0px",
           display: "flex",
           marginBottom: "30px",
           flexDirection: isWideVersion ? "row" : "column",
           marginLeft: "0",
-          height: "140px",
+          height: isWideVersion ? "170px" : "50px",
           alignItems: "center",
           justifyContent: "space-around",
         }}
       >
-        <Button color="2">Desabilitar</Button>
-        <Button>Remover Carro</Button>
+        {isWideVersion && (
+          <Paper
+            elevation={15}
+            sx={{
+              width: isWideVersion ? "45%" : "90%",
+
+              padding: "10px 20px",
+              backgroundColor: "#FA6300",
+              borderRadius: "8px",
+              color: "white",
+              minHeight: "50px",
+            }}
+          >
+            <Typography fontSize="15px" fontWeight="bold">
+              Proprietário :
+            </Typography>
+            <Typography fontWeight="bold">Fulano de tal</Typography>
+            <Typography fontWeight="bold">São Paulo</Typography>
+          </Paper>
+        )}
+
+        <Button color="1">Alugar</Button>
       </DialogActions>
     </Dialog>
   );

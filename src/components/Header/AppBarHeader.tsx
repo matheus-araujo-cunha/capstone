@@ -60,7 +60,7 @@ const AppBarHeader = ({
           color="secondary"
           sx={{ display: { xs: "none", sm: "block" }, marginRight: "10px" }}
         >
-          Kenzie Car Rental
+          Kenzie CarShop
         </Typography>
         <Box
           sx={{
