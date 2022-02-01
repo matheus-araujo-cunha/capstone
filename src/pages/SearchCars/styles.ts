@@ -7,10 +7,17 @@ export const Container = styled.div`
 `;
 
 export const SearchArea = styled.section`
-  margin-top: 25px;
-  width: 80%;
-  height: 100px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
+  margin-top: 25px;
+  height: 140px;
+  width: 80%;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    height: 100px;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;

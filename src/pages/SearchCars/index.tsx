@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import { AiOutlineSearch } from "react-icons/ai";
 
+import UseMediaQuery from "@mui/material/useMediaQuery";
+
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 export const SearchCar = () => {
@@ -34,6 +36,8 @@ export const SearchCar = () => {
     setTeste(event.target.value as string);
   };
 
+  const isWideVersion = UseMediaQuery("(min-width: 768px)");
+
   return (
     <Container>
       <ModalKnowMore open={openKnowMore} handleClose={handleCloseKnowMore} />
@@ -52,7 +56,7 @@ export const SearchCar = () => {
         />
         <Box
           sx={{
-            width: "40%",
+            width: isWideVersion ? "40%" : "100%",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
