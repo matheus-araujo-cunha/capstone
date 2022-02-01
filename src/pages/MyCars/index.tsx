@@ -1,4 +1,13 @@
-import { InputAdornment, TextField } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { Container, SearchArea, Section, Title } from "./styles";
@@ -49,6 +58,8 @@ export const MyCars = () => {
               ),
             }}
           />
+
+         
         </SearchArea>
       </Section>
       <ListMyCars handleOpenDetail={handleOpenDetail} />

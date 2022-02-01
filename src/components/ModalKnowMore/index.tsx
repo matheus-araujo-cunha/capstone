@@ -96,7 +96,6 @@ export const ModalKnowMore = ({ open, handleClose }: ModalKnowMoreProps) => {
               backgroundColor: "#FA6300",
               borderRadius: "8px",
               color: "white",
-              //   minHeight: "50px",
             }}
           >
             <Typography fontSize="15px" fontWeight="bold">
