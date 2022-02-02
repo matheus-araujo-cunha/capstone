@@ -14,6 +14,7 @@ import {
   Content,
 } from "./styles";
 import { Button } from "../../components/Button";
+import { useAuth } from "../../providers/Auth";
 
 interface SignInCredentials {
   email: string;
@@ -39,10 +40,10 @@ const Login = () => {
 
   const onSubmitFunction = (data: SignInCredentials) => {
     signIn(data);
-    setTimeout(function () {
-      window.location.reload();
-    }, 500);
-    setRefresh(!refresh);
+    // setTimeout(function () {
+    //   window.location.reload();
+    // }, 500);
+    // setRefresh(!refresh);
   };
 
   return (

@@ -19,8 +19,30 @@ import UseMediaQuery from "@mui/material/useMediaQuery";
 
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
+interface User {
+  name: string;
+  email: string;
+  id: number;
+  password: string;
+  state: string;
+}
+interface CarSearch {
+  name: string;
+  model: string;
+  description: string;
+  year: string;
+  km: string;
+  id?: number;
+  img: any;
+  pending: boolean;
+  available: boolean;
+  ownerId: string;
+  user:User
+}
+
 export const SearchCar = () => {
   const [openKnowMore, setOpenKnowMore] = useState<boolean>(false);
+  const [carSelected, setCarSelected] = useState<CarSearch>({} as CarSearch)
 
   const [teste, setTeste] = useState("");
 
@@ -28,7 +50,8 @@ export const SearchCar = () => {
     setOpenKnowMore(false);
   };
 
-  const handleOpenKnowMore = () => {
+  const handleOpenKnowMore = (car:CarSearch) => {
+    setCarSelected(car)
     setOpenKnowMore(true);
   };
 
@@ -40,7 +63,7 @@ export const SearchCar = () => {
 
   return (
     <Container>
-      <ModalKnowMore open={openKnowMore} handleClose={handleCloseKnowMore} />
+      <ModalKnowMore open={openKnowMore} handleClose={handleCloseKnowMore} car={carSelected} />
       <Header />
 
       <SearchArea>
