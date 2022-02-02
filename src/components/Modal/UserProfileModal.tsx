@@ -6,18 +6,12 @@ import {
   Card,
   CardActions,
   CardContent,
-  Divider,
-  CardHeader,
-  CardMedia,
   Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Typography as Text,
 } from "@mui/material";
 
 import { blue } from "@mui/material/colors";
+import { useAuth } from "../../providers/Auth";
 interface UserProfileModalProps {
   handleCloseProfileModal: () => void;
   openProfileModal: boolean;
@@ -27,13 +21,15 @@ const UserProfileModal = ({
   openProfileModal,
   handleCloseProfileModal,
 }: UserProfileModalProps) => {
+  const { user } = useAuth();
+
   return (
     <>
       <Dialog open={openProfileModal} onClose={handleCloseProfileModal}>
         <Card sx={{ width: "auto", height: 300 }}>
           <Box bgcolor="primary.main" sx={{ p: 2, pr: 6 }}>
             <Text gutterBottom variant="h5" component="h2">
-              Kenzinho
+              {user?.name || "Usuário"}
             </Text>
             <Box
               sx={{
@@ -53,12 +49,12 @@ const UserProfileModal = ({
                 }}
                 aria-label="Kenzinho"
               >
-                K
+                {user?.name[0].toUpperCase() || "U"}
               </Avatar>
               <Box>
                 <Text variant="body2" color="#fff" fontWeight="bold">
                   <LocationOnOutlined />
-                  Curitiba, PR
+                  {user?.city || "Cidade"}, {user?.state || "Estado"}
                 </Text>
               </Box>
             </Box>
@@ -73,7 +69,9 @@ const UserProfileModal = ({
           >
             <CardContent>
               <Text fontWeight="bold">SOBRE MIM</Text>
-              <Text>Possuo vários veículos disponíveis para alugar.</Text>
+              <Text>
+                {user?.description || "Adicione uma descrição sobre você."}
+              </Text>
             </CardContent>
             <CardActions>
               <Button size="small" onClick={handleCloseProfileModal}>

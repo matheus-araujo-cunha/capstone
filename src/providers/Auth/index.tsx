@@ -21,6 +21,9 @@ interface User {
   id: string;
   email: string;
   name: string;
+  city: string;
+  state: string;
+  description: string;
 }
 
 interface AuthState {

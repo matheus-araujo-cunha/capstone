@@ -10,22 +10,56 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Box,
 } from "@mui/material";
-import { useState } from "react";
+
+import { useForm } from "react-hook-form";
+
+import { useEffect, useState } from "react";
+import { useAuth } from "../../providers/Auth";
 
 interface UserProfileModalProps {
   handleCloseConfigurationModal: () => void;
   openConfigurationModal: boolean;
 }
 
+interface UserData {
+  name?: string;
+  description?: string;
+  city?: string;
+  state?: string;
+  password?: string;
+  password_confirmation?: string;
+}
+
 const ConfigurationModal = ({
   openConfigurationModal,
   handleCloseConfigurationModal,
 }: UserProfileModalProps) => {
+  const { user } = useAuth();
   const [state, setState] = useState();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<UserData>();
 
   const handleSelect = () => {
     setState(state);
+  };
+
+  const onSubmitForm = (data: UserData) => {
+    const objectValues = Object.values(data);
+
+    if (objectValues.every((value) => value.length === 0)) {
+      handleCloseConfigurationModal();
+    } else {
+      console.log(data);
+      handleCloseConfigurationModal();
+      reset();
+    }
   };
 
   return (
@@ -39,77 +73,108 @@ const ConfigurationModal = ({
           <DialogContentText>
             Faça as alterações que achar necessário e depois clique em salvar.
           </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Nome"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="password"
-            label="Nova senha"
-            type="password"
-            fullWidth
-            variant="standard"
-          />
-          <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel id="select-label">Estado</InputLabel>
-            <Select
-              labelId="select-label"
-              id="state"
-              value={state}
-              onChange={handleSelect}
-              sx={{ width: "auto", minWidth: "80px" }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value="AC">Acre</MenuItem>
-              <MenuItem value="AL">Alagoas</MenuItem>
-              <MenuItem value="AP">Amapá</MenuItem>
-              <MenuItem value="AM">Amazonas</MenuItem>
-              <MenuItem value="BA">Bahia</MenuItem>
-              <MenuItem value="CE">Ceará</MenuItem>
-              <MenuItem value="DF">Distrito Federal</MenuItem>
-              <MenuItem value="ES">Espírito Santo</MenuItem>
-              <MenuItem value="GO">Goiás</MenuItem>
-              <MenuItem value="MA">Maranhão</MenuItem>
-              <MenuItem value="MT">Mato Grosso</MenuItem>
-              <MenuItem value="MS">Mato Grosso do Sul</MenuItem>
-              <MenuItem value="MG">Minas Gerais</MenuItem>
-              <MenuItem value="PA">Pará</MenuItem>
-              <MenuItem value="PB">Paraíba</MenuItem>
-              <MenuItem value="PR">Paraná</MenuItem>
-              <MenuItem value="PE">Pernambuco</MenuItem>
-              <MenuItem value="PI">Piauí</MenuItem>
-              <MenuItem value="RJ">Rio de Janeiro</MenuItem>
-              <MenuItem value="RN">Rio Grande do Norte</MenuItem>
-              <MenuItem value="RS">Rio Grande do Sul</MenuItem>
-              <MenuItem value="RO">Rondônia</MenuItem>
-              <MenuItem value="RR">Roraima</MenuItem>
-              <MenuItem value="SC">Santa Catarina</MenuItem>
-              <MenuItem value="SP">São Paulo</MenuItem>
-              <MenuItem value="SE">Sergipe</MenuItem>
-              <MenuItem value="TO">Tocantins</MenuItem>
-              <MenuItem value="EX">Estrangeiro</MenuItem>
-            </Select>
-          </FormControl>
+          <Box component="form" onSubmit={handleSubmit(onSubmitForm)}>
+            <TextField
+              margin="dense"
+              id="name"
+              label="Nome"
+              type="text"
+              {...register("name")}
+              fullWidth
+              variant="standard"
+              defaultValue={user?.name || ""}
+            />
+            <TextField
+              margin="dense"
+              id="description"
+              label="Descrição"
+              {...register("description")}
+              type="text"
+              fullWidth
+              multiline
+              variant="standard"
+              defaultValue={user?.description || ""}
+            />
+            <TextField
+              margin="dense"
+              id="city"
+              label="Cidade"
+              {...register("city")}
+              type="text"
+              fullWidth
+              variant="standard"
+              defaultValue={user?.city || ""}
+            />
+            <FormControl sx={{ mt: 1 }} variant="standard">
+              <InputLabel id="select-label">Estado</InputLabel>
+              <Select
+                labelId="select-label"
+                id="state"
+                {...register("state")}
+                value={state}
+                defaultValue={user?.state || ""}
+                onChange={handleSelect}
+                sx={{ width: "auto", minWidth: "80px" }}
+              >
+                <MenuItem value={user?.state || ""}>
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="AC">Acre</MenuItem>
+                <MenuItem value="AL">Alagoas</MenuItem>
+                <MenuItem value="AP">Amapá</MenuItem>
+                <MenuItem value="AM">Amazonas</MenuItem>
+                <MenuItem value="BA">Bahia</MenuItem>
+                <MenuItem value="CE">Ceará</MenuItem>
+                <MenuItem value="DF">Distrito Federal</MenuItem>
+                <MenuItem value="ES">Espírito Santo</MenuItem>
+                <MenuItem value="GO">Goiás</MenuItem>
+                <MenuItem value="MA">Maranhão</MenuItem>
+                <MenuItem value="MT">Mato Grosso</MenuItem>
+                <MenuItem value="MS">Mato Grosso do Sul</MenuItem>
+                <MenuItem value="MG">Minas Gerais</MenuItem>
+                <MenuItem value="PA">Pará</MenuItem>
+                <MenuItem value="PB">Paraíba</MenuItem>
+                <MenuItem value="PR">Paraná</MenuItem>
+                <MenuItem value="PE">Pernambuco</MenuItem>
+                <MenuItem value="PI">Piauí</MenuItem>
+                <MenuItem value="RJ">Rio de Janeiro</MenuItem>
+                <MenuItem value="RN">Rio Grande do Norte</MenuItem>
+                <MenuItem value="RS">Rio Grande do Sul</MenuItem>
+                <MenuItem value="RO">Rondônia</MenuItem>
+                <MenuItem value="RR">Roraima</MenuItem>
+                <MenuItem value="SC">Santa Catarina</MenuItem>
+                <MenuItem value="SP">São Paulo</MenuItem>
+                <MenuItem value="SE">Sergipe</MenuItem>
+                <MenuItem value="TO">Tocantins</MenuItem>
+                <MenuItem value="EX">Estrangeiro</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              margin="dense"
+              id="password"
+              label="Nova senha"
+              type="password"
+              {...register("password")}
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              margin="dense"
+              id="password_confirmation"
+              label="Confirme a senha"
+              type="password"
+              {...register("password_confirmation")}
+              fullWidth
+              variant="standard"
+            />
+            <DialogActions>
+              <Button onClick={handleCloseConfigurationModal}>Cancelar</Button>
+              <Button variant="contained" type="submit" color="secondary">
+                Salvar
+              </Button>
+            </DialogActions>
+          </Box>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseConfigurationModal}>Cancelar</Button>
-          <Button
-            onClick={handleCloseConfigurationModal}
-            variant="contained"
-            color="secondary"
-          >
-            Salvar
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );
