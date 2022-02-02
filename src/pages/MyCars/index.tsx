@@ -1,4 +1,13 @@
-import { InputAdornment, TextField } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { Container, SearchArea, Section, Title } from "./styles";
@@ -8,6 +17,7 @@ import { useState } from "react";
 import { ModalRegistrationCar } from "../../components/ModalRegistrationCar";
 import { ListMyCars } from "../../components/ListMyCars";
 import { ModalDetailCar } from "../../components/ModalDetailCar";
+import { useCars } from "../../providers/Cars";
 
 export const MyCars = () => {
   const [open, setOpen] = useState(false);
@@ -24,6 +34,7 @@ export const MyCars = () => {
   const handleOpenDetail = () => {
     setOpenDetail(true);
   };
+
 
   return (
     <Container>
@@ -49,6 +60,8 @@ export const MyCars = () => {
               ),
             }}
           />
+
+         
         </SearchArea>
       </Section>
       <ListMyCars handleOpenDetail={handleOpenDetail} />

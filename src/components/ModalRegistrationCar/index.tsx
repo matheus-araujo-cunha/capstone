@@ -16,6 +16,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useCars } from "../../providers/Cars";
+import { useAuth } from "../../providers/Auth";
 
 interface ModalRegistrationCarProps {
   handleClose: () => void;
@@ -29,6 +31,10 @@ interface DataRegisterCar {
   year: string;
   km: string;
   img: any;
+  pending: boolean;
+  available: true;
+  userId: number;
+  id: number;
 }
 
 export const ModalRegistrationCar = ({
@@ -49,7 +55,24 @@ export const ModalRegistrationCar = ({
     resolver: yupResolver(registerSchema),
   });
 
-  const onSubmit = (data: DataRegisterCar) => console.log(data);
+  const onSubmit = (data: DataRegisterCar) => {
+    const newData = {
+      ...data,
+      available: true,
+      userId: 1,
+      pending: false,
+      id: 1,
+    };
+    const dataImage = new FormData();
+    dataImage.append("image", data.img[0]);
+
+    newData.img = dataImage;
+    console.log(dataImage);
+
+    registerCar(newData, accessToken);
+  };
+  const { registerCar } = useCars();
+  const { accessToken } = useAuth();
 
   return (
     <Dialog
@@ -100,7 +123,7 @@ export const ModalRegistrationCar = ({
                   label="Quilômetros rodados"
                   {...register("km")}
                 />
-                <TextField fullWidth type="img" {...register("img")} />
+                <TextField fullWidth type="file" {...register("img")} />
                 <DivButton>
                   <Button type="submit">Enviar</Button>
                 </DivButton>
