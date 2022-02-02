@@ -68,8 +68,6 @@ export const SearchCar = () => {
               width: "70%",
               display: "flex",
             }}
-            error={false}
-            // disabled
           >
             <InputLabel>Selecionar filtro</InputLabel>
             <Select

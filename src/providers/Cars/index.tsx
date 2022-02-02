@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   createContext,
   ReactNode,
@@ -6,7 +7,7 @@ import {
   useState,
 } from "react";
 import { toast } from "react-toastify";
-import { api } from "../../services/api";
+import { api, imgurApi } from "../../services/api";
 
 interface CarsProvidersProps {
   children: ReactNode;
@@ -52,19 +53,31 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
   const [cars, setCars] = useState<Car[]>([]);
   const [myCars, setMyCars] = useState<Car[]>([]);
 
+  const idApiImgur = "d6c0826e017cfac";
+
   const registerCar = useCallback(async (data: Car, accessToken: string) => {
-    api
-      .post("/cars", data, {
+    axios
+      .post("https://api.imgur.com/3/image", data.img, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Client-ID ${idApiImgur}`,
         },
       })
       .then((response) => {
-        toast.success("Carro cadastrado com sucesso!");
-        setCars((oldCars) => [...oldCars, response.data]);
-        setMyCars((oldMyCars) => [...oldMyCars, response.data]);
-      })
-      .catch((error) => console.log(error));
+        data.img = response.data.link;
+
+        api
+          .post("/cars", data, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          })
+          .then((response) => {
+            toast.success("Carro cadastrado com sucesso!");
+            setCars((oldCars) => [...oldCars, response.data]);
+            setMyCars((oldMyCars) => [...oldMyCars, response.data]);
+          })
+          .catch((error) => console.log(error));
+      });
   }, []);
 
   const loadMyCars = useCallback(
@@ -115,10 +128,10 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
     [cars]
   );
 
-  const findCar = useCallback(
-    async (nameCar: string, accessToken: string, userId: number) => {
+  const findMyCar = useCallback(
+    async (nameMyCar: string, accessToken: string, userId: number) => {
       const response = await api.get(
-        `/cars?name_like=${nameCar}&userId=${userId}`,
+        `/cars?name_like=${nameMyCar}&userId=${userId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -126,23 +139,20 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
         }
       );
 
-      setCars(response.data);
-    },
-    []
-  );
-
-  const findMyCar = useCallback(
-    async (nameMyCar: string, accessToken: string) => {
-      const response = await api.get(`/cars?name_like=${nameMyCar}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
       setMyCars(response.data);
     },
     []
   );
+
+  const findCar = useCallback(async (nameCar: string, accessToken: string) => {
+    const response = await api.get(`/cars?name_like=${nameCar}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    setCars(response.data);
+  }, []);
 
   const updateCar = useCallback(
     async (data: Car, accessToken: string, userId: number) => {
