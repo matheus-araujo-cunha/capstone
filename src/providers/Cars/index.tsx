@@ -24,17 +24,46 @@ interface Car {
   id: number;
   renterId?: number;
   pending: boolean;
-  userId: number;
+  ownerId: string;
+  clientId?: string;
+}
+
+interface User {
+  name: string;
+  email: string;
+  id: number;
+  password: string;
+  state: string;
+}
+
+interface CarSearch {
+  name: string;
+  model: string;
+  description: string;
+  year: string;
+  km: string;
+  id: number;
+  img: any;
+  pending: boolean;
+  available: boolean;
+  ownerId: string;
+  user: User;
 }
 
 interface CarsContextData {
-  cars: Car[];
+  cars: CarSearch[];
   myCars: Car[];
-  loadMyCars: (accessToken: string, userId: number) => Promise<void>;
+  loadMyCars: (accessToken: string, userId: string) => Promise<void>;
   loadCars: (accessToken: string, userId: number) => Promise<void>;
-  registerCar: (data: Car, accessToken: string) => Promise<void>;
+  registerCar: (data: Omit<Car, "id">, accessToken: string) => Promise<void>;
   deleteCar: (accessToken: string, carId: number) => Promise<void>;
   updateCar: (data: Car, accessToken: string, userId: number) => Promise<void>;
+  finishLocate: (
+    accessToken: string,
+    car: Car,
+    clientId: number
+  ) => Promise<void>;
+  locateCar: (accessToken: string, car: Car, clientId: number) => Promise<void>;
 }
 
 const CarsContext = createContext<CarsContextData>({} as CarsContextData);
@@ -50,46 +79,49 @@ export const useCars = () => {
 };
 
 export const CarsProviders = ({ children }: CarsProvidersProps) => {
-  const [cars, setCars] = useState<Car[]>([]);
+  const [cars, setCars] = useState<CarSearch[]>([]);
   const [myCars, setMyCars] = useState<Car[]>([]);
 
-  const idApiImgur = "d6c0826e017cfac";
+  const idApiImgur = "ad930cc234bb93b";
 
-  const registerCar = useCallback(async (data: Car, accessToken: string) => {
-    axios
-      .post("https://api.imgur.com/3/image", data.img, {
-        headers: {
-          Authorization: `Client-ID ${idApiImgur}`,
-        },
-      })
-      .then((response) => {
-        data.img = response.data.link;
+  const registerCar = useCallback(
+    async (car: Omit<Car, "id">, accessToken: string) => {
+      axios
+        .post("https://api.imgur.com/3/image", car.img, {
+          headers: {
+            Authorization: `Client-ID ${idApiImgur}`,
+          },
+        })
+        .then((response) => {
+          car.img = response.data.data.link;
 
-        api
-          .post("/cars", data, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          })
-          .then((response) => {
-            toast.success("Carro cadastrado com sucesso!");
-            setCars((oldCars) => [...oldCars, response.data]);
-            setMyCars((oldMyCars) => [...oldMyCars, response.data]);
-          })
-          .catch((error) => console.log(error));
-      });
-  }, []);
+          api
+            .post("/cars", car, {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            })
+            .then((response) => {
+              toast.success("Carro cadastrado com sucesso!");
+              setCars((oldCars) => [...oldCars, response.data]);
+              setMyCars((oldMyCars) => [...oldMyCars, response.data]);
+            })
+            .catch((error) => console.log(error));
+        });
+    },
+    []
+  );
 
   const loadMyCars = useCallback(
-    async (accessToken: string, userId: number) => {
+    async (accessToken: string, userId: string) => {
       api
-        .get(`/cars?userId=${userId}`, {
+        .get(`/cars?ownerId=${userId}`, {
           headers: {
             Authorization: `Bearer  ${accessToken}`,
           },
         })
         .then((response) => {
-          setCars(response.data);
+          setMyCars(response.data);
         });
     },
     []
@@ -97,7 +129,7 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
 
   const loadCars = useCallback(async (accessToken: string) => {
     api
-      .get(`/cars`, {
+      .get(`/cars?_expand=user`, {
         headers: {
           Authorization: `Bearer  ${accessToken}`,
         },
@@ -109,7 +141,7 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
 
   const deleteCar = useCallback(
     async (accessToken: string, carId: number) => {
-      api
+      await api
         .delete(`/cars/${carId}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -117,15 +149,15 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
         })
         .then((_) => {
           toast.success("Removido com sucesso!");
-          const carsFiltered = cars.filter((car) => car.id !== carId);
+          const carsFiltered = myCars.filter((car) => car.id !== carId);
 
-          setCars(carsFiltered);
+          setMyCars(carsFiltered);
         })
         .catch((err) => {
           toast.error("Ops, não foi possível remover");
         });
     },
-    [cars]
+    [myCars]
   );
 
   const findMyCar = useCallback(
@@ -154,12 +186,54 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
     setCars(response.data);
   }, []);
 
+  const locateCar = useCallback(
+    async (accessToken: string, car: Car, clientId: number) => {
+      const newData = { ...car, clientId: clientId };
+
+      newData.available = false;
+
+      api
+        .patch(`/cars/${car.id}`, newData, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((_) => toast.success("Alugado com sucesso!"));
+    },
+    []
+  );
+
+  const finishLocate = useCallback(
+    async (accessToken: string, car: Car, clientId: number) => {
+      delete car.clientId;
+      car.available = true;
+
+      const newData = { ...car };
+
+      api
+        .patch(`/cars/${car.id}`, newData, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((_) => toast.success("Locação finalizada!"))
+        .catch((err) => toast.error(err));
+    },
+    []
+  );
+
   const updateCar = useCallback(
     async (data: Car, accessToken: string, userId: number) => {
+      if (!!data.available) {
+        data.available = false;
+      } else {
+        data.available = true;
+      }
+
       await api
         .patch(
           `/cars/${data.id}`,
-          { available: !data.available, userId },
+          { available: data.available, userId },
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -190,6 +264,8 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
         loadMyCars,
         updateCar,
         loadCars,
+        finishLocate,
+        locateCar,
       }}
     >
       {children}

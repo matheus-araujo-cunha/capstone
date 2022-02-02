@@ -14,6 +14,7 @@ import {
   Content,
 } from "./styles";
 import { Button } from "../../components/Button";
+import { useAuth } from "../../providers/Auth";
 
 interface SignInCredentials {
   email: string;
@@ -22,7 +23,7 @@ interface SignInCredentials {
 
 const Login = () => {
   const history = useHistory();
-  // const { signIn } = useAuth();
+  const { signIn } = useAuth();
 
   const formSchema = yup.object().shape({
     email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
@@ -38,7 +39,7 @@ const Login = () => {
   });
 
   const onSubmitFunction = (data: SignInCredentials) => {
-    // signIn(data);
+    signIn(data);
     // setTimeout(function () {
     //   window.location.reload();
     // }, 500);

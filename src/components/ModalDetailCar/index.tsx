@@ -14,14 +14,49 @@ import UseMediaQuery from "@mui/material/useMediaQuery";
 import { Button } from "../Button";
 
 import CloseIcon from "@mui/icons-material/Close";
+import { useCars } from "../../providers/Cars";
+import { useAuth } from "../../providers/Auth";
 
+interface Car {
+  name: string;
+  model: string;
+  description: string;
+  year: string;
+  km: string;
+  id: number;
+  img: any;
+  pending: boolean;
+  available: boolean;
+  ownerId: string;
+  clientId?:string;
+}
 interface ModalDetailCarProps {
   open: boolean;
   handleClose: () => void;
+  car: Car;
 }
 
-export const ModalDetailCar = ({ open, handleClose }: ModalDetailCarProps) => {
+export const ModalDetailCar = ({
+  open,
+  handleClose,
+  car,
+}: ModalDetailCarProps) => {
   const isWideVersion = UseMediaQuery("(min-width: 768px)");
+
+  const { updateCar, deleteCar } = useCars();
+  const { accessToken, user } = useAuth();
+
+  const handleUptadeCar = () => {
+    updateCar(car, accessToken, Number(user.id));
+    handleClose();
+  };
+
+  const handleDeleteCar = () => {
+    deleteCar(accessToken, car.id);
+    handleClose();
+  };
+
+  console.log(car);
 
   return (
     <Dialog
@@ -63,8 +98,8 @@ export const ModalDetailCar = ({ open, handleClose }: ModalDetailCarProps) => {
         }}
       >
         <img
-          src="https://quatrorodas.abril.com.br/wp-content/uploads/2020/09/Kombi-modelo-1959-vers%C3%A3o-luxo-da-Volkswagen-pertencente-a-Francisco-Varca-J%C3%BAni_2_2.jpg?quality=70&strip=info"
-          alt="carro"
+          src={car.img}
+          alt={car.name}
           style={{
             width: isWideVersion ? "50%" : "100%",
             borderRadius: "10px",
@@ -84,12 +119,12 @@ export const ModalDetailCar = ({ open, handleClose }: ModalDetailCarProps) => {
             borderRadius: "8px",
           }}
         >
-          <Typography>Volkswagen Kombi</Typography>
-          <Typography>Ano - 2000</Typography>
-          <Typography>KM - 80.000</Typography>
           <Typography>
-            1.4 MI STD 8V FLEX 3P MANUAL 1.4 MI STD 8V FLEX 3P MANUAL
+            {car.model} {car.name}
           </Typography>
+          <Typography>Ano - {car.year}</Typography>
+          <Typography>KM - {car.km}</Typography>
+          <Typography>{car.description}</Typography>
         </Paper>
       </DialogContent>
       <DialogActions
@@ -104,8 +139,10 @@ export const ModalDetailCar = ({ open, handleClose }: ModalDetailCarProps) => {
           justifyContent: "space-around",
         }}
       >
-        <Button color="2">Desabilitar</Button>
-        <Button>Remover Carro</Button>
+        <Button color="2" onClick={handleUptadeCar}>
+          {car.available ? "Desabilitar" : "Habilitar"}
+        </Button>
+        <Button onClick={handleDeleteCar}>Remover Carro</Button>
       </DialogActions>
     </Dialog>
   );

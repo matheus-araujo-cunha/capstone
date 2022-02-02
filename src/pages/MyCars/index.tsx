@@ -19,30 +19,54 @@ import { ListMyCars } from "../../components/ListMyCars";
 import { ModalDetailCar } from "../../components/ModalDetailCar";
 import { useCars } from "../../providers/Cars";
 
+interface Car {
+  name:string;
+  model:string;
+  description: string;
+  year:string;
+  km:string;
+  id:number;
+  img: any;
+  pending: boolean;
+  available: boolean;
+  ownerId: string;
+}
+
 export const MyCars = () => {
-  const [open, setOpen] = useState(false);
+  const [openRegistration, setOpenRegistration] = useState(false);
   const [openDetail, setOpenDetail] = useState(false);
 
-  const handleClose = () => {
-    setOpen(false);
+  const [selectedCar, setSelectedCar] = useState<Car>({} as Car);
+
+  const { myCars } = useCars();
+
+  const handleCloseRegistration = () => {
+    setOpenRegistration(false);
   };
 
   const handleCloseDetail = () => {
     setOpenDetail(false);
   };
 
-  const handleOpenDetail = () => {
+  const handleOpenDetail = (car: Car) => {
+    setSelectedCar(car);
     setOpenDetail(true);
   };
 
-
   return (
     <Container>
-      <ModalRegistrationCar open={open} handleClose={handleClose} />
-      <ModalDetailCar open={openDetail} handleClose={handleCloseDetail} />
+      <ModalRegistrationCar
+        open={openRegistration}
+        handleClose={handleCloseRegistration}
+      />
+      <ModalDetailCar
+        open={openDetail}
+        handleClose={handleCloseDetail}
+        car={selectedCar}
+      />
       <Header />
       <Section>
-        <Button color="2" onClick={() => setOpen(true)}>
+        <Button color="2" onClick={() => setOpenRegistration(true)}>
           Cadastrar um carro
         </Button>
         <SearchArea>
@@ -60,8 +84,6 @@ export const MyCars = () => {
               ),
             }}
           />
-
-         
         </SearchArea>
       </Section>
       <ListMyCars handleOpenDetail={handleOpenDetail} />

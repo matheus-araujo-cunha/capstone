@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
+  Typography,
 } from "@mui/material";
 
 import UseMediaQuery from "@mui/material/useMediaQuery";
@@ -32,9 +33,8 @@ interface DataRegisterCar {
   km: string;
   img: any;
   pending: boolean;
-  available: true;
-  userId: number;
-  id: number;
+  available: boolean;
+  ownerId: string;
 }
 
 export const ModalRegistrationCar = ({
@@ -44,7 +44,12 @@ export const ModalRegistrationCar = ({
   const isWideVersion = UseMediaQuery("(min-width:768px)");
 
   const registerSchema = yup.object().shape({
-    name: yup.string().required("Campo obrigatório"),
+    name: yup.string().required("Nome do carro obrigatório"),
+    model: yup.string().required("Modelo de carro obrigatório"),
+    description: yup.string().required("Descrição de carro obrigatória"),
+    year: yup.string().required("Ano do carro obrigaório"),
+    km: yup.string().required("Quilometragem do carro obrigatória"),
+    img: yup.mixed().required("Arquivo de imagem obrigatório"),
   });
 
   const {
@@ -56,23 +61,22 @@ export const ModalRegistrationCar = ({
   });
 
   const onSubmit = (data: DataRegisterCar) => {
+    console.log(data);
     const newData = {
       ...data,
       available: true,
-      userId: 1,
+      ownerId: user.id,
       pending: false,
-      id: 1,
     };
     const dataImage = new FormData();
     dataImage.append("image", data.img[0]);
 
     newData.img = dataImage;
-    console.log(dataImage);
 
     registerCar(newData, accessToken);
   };
   const { registerCar } = useCars();
-  const { accessToken } = useAuth();
+  const { accessToken, user } = useAuth();
 
   return (
     <Dialog
@@ -104,14 +108,30 @@ export const ModalRegistrationCar = ({
           {isWideVersion ? (
             <>
               <SectionLeft>
-                <TextField fullWidth label="Nome" {...register("name")} />
-                <TextField fullWidth label="Modelo" {...register("model")} />
                 <TextField
+                  fullWidth
+                  label="Nome"
+                  {...register("name")}
+                  error={!!errors.name}
+                  helperText={errors.name?.message}
+                />
+                <TextField
+                  error={!!errors.model}
+                  helperText={errors.model?.message}
+                  fullWidth
+                  label="Modelo"
+                  {...register("model")}
+                />
+                <TextField
+                  error={!!errors.description}
+                  helperText={errors.description?.message}
                   fullWidth
                   label="Descrição"
                   {...register("description")}
                 />
                 <TextField
+                  error={!!errors.year}
+                  helperText={errors.year?.message}
                   fullWidth
                   label="Ano de fabricação"
                   {...register("year")}
@@ -119,11 +139,28 @@ export const ModalRegistrationCar = ({
               </SectionLeft>
               <SectionRight>
                 <TextField
+                  error={!!errors.km}
+                  helperText={errors.km?.message}
                   fullWidth
                   label="Quilômetros rodados"
                   {...register("km")}
                 />
-                <TextField fullWidth type="file" {...register("img")} />
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Typography>Insira imagem do carro</Typography>
+                  <TextField
+                    placeholder="Teste"
+                    error={!!errors.img}
+                    helperText={errors.img?.message}
+                    {...register("img")}
+                    type="file"
+                  />
+                </Box>
                 <DivButton>
                   <Button type="submit">Enviar</Button>
                 </DivButton>
@@ -131,12 +168,48 @@ export const ModalRegistrationCar = ({
             </>
           ) : (
             <>
-              <TextField label="Nome" />
-              <TextField label="Modelo" />
-              <TextField label="Descrição" />
-              <TextField label="Ano de fabricação" />
-              <TextField label="Quilômetros rodados" />
-              <TextField type="img" />
+              <TextField
+                error={!!errors.name}
+                helperText={errors.name?.message}
+                label="Nome"
+              />
+              <TextField
+                error={!!errors.model}
+                helperText={errors.model?.message}
+                label="Modelo"
+              />
+              <TextField
+                error={!!errors.description}
+                helperText={errors.description?.message}
+                label="Descrição"
+              />
+              <TextField
+                error={!!errors.year}
+                helperText={errors.year?.message}
+                label="Ano de fabricação"
+              />
+              <TextField
+                error={!!errors.km}
+                helperText={errors.km?.message}
+                label="Quilômetros rodados"
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Typography>Insira imagem do carro</Typography>
+                <TextField
+                  placeholder="Teste"
+                  error={!!errors.img}
+                  helperText={errors.img?.message}
+                  type="file"
+                  {...register("img")}
+                />
+              </Box>
+
               <Button type="submit" autoFocus onClick={handleClose}>
                 Enviar
               </Button>
