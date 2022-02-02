@@ -14,18 +14,20 @@ export const Form = styled.form`
     align-items: flex-start;
     height: 435px;
     margin-top: 20px;
+
+    gap: 25%;
   }
 `;
 
 export const SectionLeft = styled.section`
   display: flex;
-  width: 40%;
+  width: 45%;
   flex-direction: column;
   margin-left: 30px;
   gap: 30px;
   align-items: center;
 
-  max-width: 300px;
+  max-width: 320px;
 `;
 
 export const SectionRight = styled(SectionLeft)`

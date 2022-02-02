@@ -22,6 +22,7 @@ interface Car {
   img: any;
   id: number;
   renterId?: number;
+  pending: boolean;
   userId: number;
 }
 
