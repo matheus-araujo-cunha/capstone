@@ -22,7 +22,7 @@ interface SignInCredentials {
 
 const Login = () => {
   const history = useHistory();
-  // const { signIn } = useAuth();
+  const { signIn } = useAuth();
 
   const formSchema = yup.object().shape({
     email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
@@ -38,11 +38,11 @@ const Login = () => {
   });
 
   const onSubmitFunction = (data: SignInCredentials) => {
-    // signIn(data);
-    // setTimeout(function () {
-    //   window.location.reload();
-    // }, 500);
-    // setRefresh(!refresh);
+    signIn(data);
+    setTimeout(function () {
+      window.location.reload();
+    }, 500);
+    setRefresh(!refresh);
   };
 
   return (
@@ -74,11 +74,11 @@ const Login = () => {
             <Error>
               {errors.email?.message && <span>{errors.password?.message}</span>}
             </Error>
-            <Button type="submit" color="true">
+            <Button type="submit" color="2">
               Logar
             </Button>
             <Cade>Não possui conta? Cadastre-se!</Cade>
-            <Button onClick={() => history.push("/signup")}>
+            <Button color="1" onClick={() => history.push("/signup")}>
               Ir para cadastro
             </Button>
           </div>
