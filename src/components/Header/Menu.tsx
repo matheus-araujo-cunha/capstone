@@ -1,4 +1,5 @@
 import { Menu as MenuMaterial, MenuItem } from "@mui/material";
+import { useAuth } from "../../providers/Auth";
 
 interface MenuProps {
   anchorEl: HTMLElement | null;
@@ -17,6 +18,7 @@ const MenuHeader = ({
   handleOpenProfileModal,
   handleOpenConfigurationModal,
 }: MenuProps) => {
+  const { logOut } = useAuth();
   return (
     <MenuMaterial
       anchorEl={anchorEl}
@@ -35,7 +37,14 @@ const MenuHeader = ({
     >
       <MenuItem onClick={handleOpenProfileModal}>Meu perfil</MenuItem>
       <MenuItem onClick={handleOpenConfigurationModal}>Configuração</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Sair</MenuItem>
+      <MenuItem
+        onClick={() => {
+          handleMenuClose();
+          logOut();
+        }}
+      >
+        Sair
+      </MenuItem>
     </MenuMaterial>
   );
 };

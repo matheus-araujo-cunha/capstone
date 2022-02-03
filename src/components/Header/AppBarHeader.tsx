@@ -43,21 +43,12 @@ const AppBarHeader = ({
   return (
     <MaterialAppBar position="static">
       <Toolbar sx={{ backgroundColor: "#462A71" }}>
-        {/* <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton> */}
         <Typography
           variant="h5"
           fontWeight="bold"
           noWrap
           component="div"
-          color="secondary"
+          color="white"
           sx={{ display: { xs: "none", sm: "block" }, marginRight: "10px" }}
         >
           Kenzie CarShop
@@ -83,7 +74,8 @@ const AppBarHeader = ({
               alignItems: "center",
               height: isWideVersion ? "60%" : "70%",
               gap: 2,
-              width: isWideVersion ? "50%" : "90%",
+              width: "330px",
+              
             }}
           >
             <Box
@@ -93,7 +85,7 @@ const AppBarHeader = ({
                 height: "35px",
                 // minWidth: "80px",
                 maxWidth: "300px",
-                borderRadius: "33px",
+                borderRadius: "10px",
                 color: "white",
                 padding: "2px 20px",
                 backgroundColor: pathname === "/myCars" ? "#37404E" : "inherit",
@@ -115,7 +107,7 @@ const AppBarHeader = ({
                 height: "35px",
                 // minWidth: "80px",
                 maxWidth: "300px",
-                borderRadius: "33px",
+                borderRadius: "10px",
                 padding: "2px 20px",
                 backgroundColor:
                   pathname === "/searchCars" ? "#37404E" : "inherit",

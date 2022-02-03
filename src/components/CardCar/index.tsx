@@ -1,6 +1,5 @@
 import { Box, Card, CardActions, CardContent, Typography } from "@mui/material";
-import { Button } from "../Button";
-import { CardButton, Container, Image } from "./styles";
+import { CardButton, Image } from "./styles";
 import UseMediaQuery from "@mui/material/useMediaQuery";
 
 interface CardCarProps {
@@ -44,10 +43,10 @@ export const CardCar = ({ handleOpenDetail, car }: CardCarProps) => {
       <CardContent>
         <Box display="flex" gap={1}>
           <Typography gutterBottom variant="h5" component="div">
-            {car.model}
+            {`${car.model.charAt(0).toUpperCase()}${car.model.slice(1)}`}
           </Typography>
           <Typography gutterBottom variant="h5" component="div">
-            {car.name}
+            {`${car.name.charAt(0).toUpperCase()}${car.name.slice(1)}`}
           </Typography>
         </Box>
         <Typography

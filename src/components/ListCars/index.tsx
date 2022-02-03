@@ -38,9 +38,13 @@ export const ListCars = ({ handleOpenKnowMore }: ListCarsProps) => {
     loadCars(accessToken, Number(user.id));
   }, []);
 
+  const carsAvailable = cars.filter(
+    (car) => car.available === true && car.userId !== user.id
+  );
+
   return (
     <Container>
-      {cars.map((car) => (
+      {carsAvailable.map((car) => (
         <CardPageSearch
           handleOpenKnowMore={handleOpenKnowMore}
           key={car.id}

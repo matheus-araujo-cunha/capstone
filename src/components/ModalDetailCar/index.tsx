@@ -28,7 +28,7 @@ interface Car {
   pending: boolean;
   available: boolean;
   userId: string;
-  clientId?:string;
+  clientId?: string;
 }
 interface ModalDetailCarProps {
   open: boolean;
@@ -55,8 +55,6 @@ export const ModalDetailCar = ({
     deleteCar(accessToken, car.id);
     handleClose();
   };
-
-  console.log(car);
 
   return (
     <Dialog
@@ -120,7 +118,8 @@ export const ModalDetailCar = ({
           }}
         >
           <Typography>
-            {car.model} {car.name}
+            {`${car.model?.charAt(0).toUpperCase()}${car.model?.slice(1)}`}{" "}
+            {`${car.name?.charAt(0).toUpperCase()}${car.name?.slice(1)}`}
           </Typography>
           <Typography>Ano - {car.year}</Typography>
           <Typography>KM - {car.km}</Typography>

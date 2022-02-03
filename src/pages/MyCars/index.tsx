@@ -18,18 +18,24 @@ import { ModalRegistrationCar } from "../../components/ModalRegistrationCar";
 import { ListMyCars } from "../../components/ListMyCars";
 import { ModalDetailCar } from "../../components/ModalDetailCar";
 import { useCars } from "../../providers/Cars";
+import { useForm } from "react-hook-form";
+import { useAuth } from "../../providers/Auth";
 
 interface Car {
-  name:string;
-  model:string;
+  name: string;
+  model: string;
   description: string;
-  year:string;
-  km:string;
-  id:number;
+  year: string;
+  km: string;
+  id: number;
   img: any;
   pending: boolean;
   available: boolean;
   userId: string;
+}
+
+interface NameData {
+  name: string;
 }
 
 export const MyCars = () => {
@@ -38,7 +44,13 @@ export const MyCars = () => {
 
   const [selectedCar, setSelectedCar] = useState<Car>({} as Car);
 
-  const { myCars } = useCars();
+  const { myCars, findMyCar } = useCars();
+
+  const { register, handleSubmit } = useForm<NameData>();
+
+  const { user, accessToken } = useAuth();
+
+
 
   const handleCloseRegistration = () => {
     setOpenRegistration(false);
@@ -51,6 +63,10 @@ export const MyCars = () => {
   const handleOpenDetail = (car: Car) => {
     setSelectedCar(car);
     setOpenDetail(true);
+  };
+
+  const onSubmit = (data: NameData) => {
+    findMyCar(data.name, accessToken, Number(user.id));
   };
 
   return (
@@ -69,17 +85,35 @@ export const MyCars = () => {
         <Button color="2" onClick={() => setOpenRegistration(true)}>
           Cadastrar um carro
         </Button>
-        <SearchArea>
+        <SearchArea onSubmit={handleSubmit(onSubmit)}>
           <Title>
             <h2>Meus Carros</h2>
           </Title>
           <TextField
             placeholder="Pesquise seu carro"
             size="medium"
+            {...register("name")}
             InputProps={{
               endAdornment: (
-                <InputAdornment position="end">
-                  <AiOutlineSearch />
+                <InputAdornment
+                  component="button"
+                  type="submit"
+                  position="end"
+                  sx={{
+                    border: "none",
+                    padding: "10px 0",
+                    maxWidth: "50px",
+
+                    height: "100%",
+                    width: "50%",
+                    borderRadius: "8px",
+                    backgroundColor: "orange",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <AiOutlineSearch color="white" />
                 </InputAdornment>
               ),
             }}
@@ -90,3 +124,7 @@ export const MyCars = () => {
     </Container>
   );
 };
+function UseMediaQuery(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+

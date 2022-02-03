@@ -74,6 +74,7 @@ export const ModalRegistrationCar = ({
     newData.img = dataImage;
 
     registerCar(newData, accessToken);
+    handleClose();
   };
   const { registerCar } = useCars();
   const { accessToken, user } = useAuth();

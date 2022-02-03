@@ -3,10 +3,10 @@ import { useContext, createContext, useState, ReactNode } from "react";
 import emailjs from "@emailjs/browser";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
-import {useAuth} from "../Auth"
+import { useAuth } from "../Auth";
 
 interface MessengerProviderData {
-  sendEmail: ( messenger:string, date:string, car:CarSearch) => void;
+  sendEmail: (messenger: string, date: string, car: CarSearch) => void;
   isOpemModalMessenger: boolean;
   isOpemModalMessengerFunction: () => void;
 }
@@ -39,7 +39,7 @@ interface CarSearch {
   pending: boolean;
   available: boolean;
   userId: string;
-  user?:User
+  user?: User;
 }
 
 const MessengerContext = createContext<MessengerProviderData>(
@@ -47,7 +47,7 @@ const MessengerContext = createContext<MessengerProviderData>(
 );
 
 export const MessengerProider = ({ children }: MessengerProviderProps) => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [isOpemModalMessenger, SetIsOpemModalMessenger] = useState(false);
 
   const isOpemModalMessengerFunction = () => {
@@ -58,8 +58,8 @@ export const MessengerProider = ({ children }: MessengerProviderProps) => {
     }
   };
 
-  const sendEmail = ( messenger:string, date:string, car:CarSearch) => {
-    const accessToken = localStorage.getItem("@Capstone:accessToken") 
+  const sendEmail = (messenger: string, date: string, car: CarSearch) => {
+    const accessToken = localStorage.getItem("@Capstone:accessToken");
 
     /* api
       .get(`/users/${car.userId}`, {
@@ -72,7 +72,6 @@ export const MessengerProider = ({ children }: MessengerProviderProps) => {
       })
       .catch((error) => console.log(error)); */
 
-
     const messengerObj = {
       from_name: user.name,
       to_name: car.user?.name,
@@ -83,10 +82,10 @@ export const MessengerProider = ({ children }: MessengerProviderProps) => {
       to_email: user.email,
       messenger: messenger,
     };
-    
+
     console.log(messengerObj, user, user);
-    
-     emailjs
+
+    emailjs
       .send(
         "service_054gceb",
         "template_3q7o307",
@@ -97,7 +96,7 @@ export const MessengerProider = ({ children }: MessengerProviderProps) => {
         (result) => {
           toast.success("Email Eviado com sucesso!");
           console.log(result.text);
-          isOpemModalMessengerFunction()
+          isOpemModalMessengerFunction();
         },
         (error) => {
           console.log(error.text);

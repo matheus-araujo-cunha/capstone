@@ -14,6 +14,7 @@ import logoImg from "../../assets/car.png";
 import logo from "../../assets/logo.png";
 import imgEstrada from "../../assets/estrada.png";
 import { useHistory } from "react-router-dom";
+import { Button } from "../../components/Button";
 export const Home = () => {
   const history = useHistory();
   return (
@@ -34,25 +35,26 @@ export const Home = () => {
             <img src={logo} alt="logo" />
           </div>
           <div className="container-buttons">
-            <button
-              className="btn-cadastro"
+            <Button
+              
+               className="btn-cadastro" 
               onClick={() => history.push("/signup")}
             >
               Cadastro
-            </button>
-            <button
+            </Button>
+            <Button
               className="btn-login"
               onClick={() => history.push("/signin")}
             >
               Login
-            </button>
+            </Button>
           </div>
         </Header>
         <ContainerTitle>
           <h1>Kenzie Car Rental</h1>
-          <p>a maior plataforma de aluguéis de carros C2C do Brasil</p>
+          <p>A maior plataforma de aluguéis de carros C2C do Brasil</p>
 
-          <button onClick={() => history.push("/signin")}>Veja mais</button>
+          <Button onClick={() => history.push("/signin")}>Veja mais</Button>
         </ContainerTitle>
         <ContainerSlider>
           <div className="slider">

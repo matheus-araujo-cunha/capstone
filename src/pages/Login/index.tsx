@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField } from "@mui/material";
 import {useHistory} from "react-router-dom"
+import img from "../../assets/login.png";
 import {
   Form,
   Error,
@@ -48,12 +49,13 @@ const Login = () => {
 
   return (
     <Content>
+      <img src={img}/>
       <Container>
         <Main> Kenzie </Main>
         <Second> Carshop</Second>
         <Form onSubmit={handleSubmit(onSubmitFunction)}>
+          <P>Login</P>
           <div className="form">
-            <P>Login</P>
             <TextField
               fullWidth
               id="login-basic"

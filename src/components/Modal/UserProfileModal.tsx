@@ -22,6 +22,7 @@ const UserProfileModal = ({
   handleCloseProfileModal,
 }: UserProfileModalProps) => {
   const { user } = useAuth();
+  
 
   return (
     <>
@@ -49,7 +50,7 @@ const UserProfileModal = ({
                 }}
                 aria-label="Kenzinho"
               >
-                {user?.name[0].toUpperCase() || "U"}
+                {user.name ? user.name[0].toUpperCase() : "U"}
               </Avatar>
               <Box>
                 <Text variant="body2" color="#fff" fontWeight="bold">
@@ -86,3 +87,7 @@ const UserProfileModal = ({
 };
 
 export { UserProfileModal };
+  function UseMediaQuery(arg0: string) {
+    throw new Error("Function not implemented.");
+  }
+
