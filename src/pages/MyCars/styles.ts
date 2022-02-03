@@ -4,20 +4,21 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  width: 100vw;
 `;
 
 export const Section = styled.section`
-  width: 99%;
+  width: 95%;
   height: 130px;
   display: flex;
   align-items: center;
   gap: 16%;
-  justify-content: flex-end;
+  justify-content: center;
   flex-direction: column;
   margin-top: 10px;
 
   button {
-    margin-right: 10px;
     width: 60%;
   }
 
@@ -26,7 +27,7 @@ export const Section = styled.section`
     flex-wrap: nowrap;
     gap: 8%;
     justify-content: space-between;
-
+    margin: 0;
     button {
       width: 25%;
     }
@@ -34,7 +35,7 @@ export const Section = styled.section`
 `;
 
 export const Title = styled.div`
-  width: 45%;
+  width: 30%;
   font-size: 22px;
   color: var(--grey-600);
   text-align: center;
@@ -49,8 +50,9 @@ export const SearchArea = styled.form`
   height: 50%;
 
   @media screen and (min-width: 768px) {
-    justify-content: flex-end;
-    width: 80%;
+    justify-content: start;
+    width: 60%;
+    
   }
 `;
 

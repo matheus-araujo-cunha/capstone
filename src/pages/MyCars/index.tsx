@@ -50,6 +50,8 @@ export const MyCars = () => {
 
   const { user, accessToken } = useAuth();
 
+
+
   const handleCloseRegistration = () => {
     setOpenRegistration(false);
   };
@@ -122,3 +124,7 @@ export const MyCars = () => {
     </Container>
   );
 };
+function UseMediaQuery(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+

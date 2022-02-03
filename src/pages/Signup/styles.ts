@@ -4,12 +4,9 @@ import img from "../../assets/register.svg";
 export const Container = styled.div`
   /* padding: 20px 10px 10px 20px; */
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  height: 100vh;
-
+  height: 100Vh;
+  align-items: center;
   @media (min-width: 1000px) {
     /* padding: 20px 10px 10px 700px; */
     /* flex-direction: column;
@@ -24,11 +21,12 @@ export const Container = styled.div`
 export const Title = styled.div`
   display: flex;
   justify-content: space-around;
-  margin-left: 140px;
 
   section {
     display: flex;
     font-weight: bold;
+    flex-direction: column;
+    align-items: center;
   }
 
   img {
@@ -37,7 +35,7 @@ export const Title = styled.div`
   }
   .title-1 {
     color: #462a71;
-    font-size: 66px;
+    font-size: 50px;
     @media (max-width: 1000px) {
       display: none;
     }
@@ -45,8 +43,7 @@ export const Title = styled.div`
 
   .title-2 {
     color: #fa6300;
-    font-size: 66px;
-    margin-left: 12px;
+    font-size: 50px;
     @media (max-width: 1000px) {
       display: none;
     }
@@ -58,6 +55,10 @@ export const ContainerForm = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+
+  @media screen and (min-width:1000px){
+    width: 40%;
+  }
 `;
 
 export const Form = styled.form`
@@ -71,7 +72,7 @@ export const Form = styled.form`
   width: 100%;
   max-width: 442px;
   background: #ffffff;
-  border: 2px solid #f5f5f5;
+  border: 2px solid var(--color-secondary);
   box-sizing: border-box;
   box-shadow: 0px 0px 30px -20px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
@@ -128,10 +129,10 @@ export const ContainerImg = styled.div`
     display: block;
   }
   img {
-    margin-bottom: 70px;
+    width: 100%;
   }
-  @media (min-width: 1000px) {
+  /* @media (min-width: 1000px) {
     background-repeat: no-repeat;
     background-image: url(${img});
-  }
+  } */
 `;
