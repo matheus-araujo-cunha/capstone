@@ -1,8 +1,8 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useHistory } from "react-router-dom";
 import { TextField } from "@mui/material";
+import {useHistory} from "react-router-dom"
 import {
   Form,
   Error,
@@ -22,7 +22,6 @@ interface SignInCredentials {
 }
 
 const Login = () => {
-  const history = useHistory();
   const { signIn } = useAuth();
 
   const formSchema = yup.object().shape({
@@ -79,7 +78,7 @@ const Login = () => {
               Logar
             </Button>
             <Cade>Não possui conta? Cadastre-se!</Cade>
-            <Button color="1" onClick={() => history.push("/signup")}>
+            <Button color="1">
               Ir para cadastro
             </Button>
           </div>

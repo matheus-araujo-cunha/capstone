@@ -66,12 +66,14 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
     const response = await api.post("/login", { email, password });
+    console.log(response)
     const { accessToken, user } = response.data;
 
     localStorage.setItem("@Capstone:accessToken", accessToken);
     localStorage.setItem("@Capstone:user", JSON.stringify(user));
 
     setData({ accessToken, user });
+    
   }, []);
 
   const logOut = useCallback(() => {

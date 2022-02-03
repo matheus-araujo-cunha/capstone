@@ -39,7 +39,7 @@ const MessengerContext = createContext<MessengerProviderData>(
 export const MessengerProider = ({ children }: MessengerProviderProps) => {
   const [isOpemModalMessenger, SetIsOpemModalMessenger] = useState(false);
   const [user, setuser] = useState<User>({} as User);
-  const [myUser, mySetUser] = useState<User>({} as User);
+  const [myUser, setMyUser] = useState<any>({});
 
   const isOpemModalMessengerFunction = () => {
     if (isOpemModalMessenger) {
@@ -49,12 +49,10 @@ export const MessengerProider = ({ children }: MessengerProviderProps) => {
     }
   };
 
-  const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpbGxpYW5fZ19zX3NAaG90bWFpbC5jb20iLCJpYXQiOjE2NDM4NjQxNTEsImV4cCI6MTY0Mzg2Nzc1MSwic3ViIjoiMiJ9.kL8hb1fBmojOssopVvRDO0cQ8kcKZdd4xtdrryvamRg";
-
   const sendEmail = (messenger: string, date: string, car: Car) => {
-    /* const accessToken = localStorage.getItem("@Capstone:accessToken") 
-    const myuserId = localStorage.getItem("@Capstone:user"); */
-
+    const accessToken = localStorage.getItem("@Capstone:accessToken") 
+    const myuser = localStorage.getItem("@Capstone:user") || null; 
+    setMyUser(myuser);
     api
       .get(`/users/${car.userId}`, {
         headers: {
@@ -66,16 +64,6 @@ export const MessengerProider = ({ children }: MessengerProviderProps) => {
       })
       .catch((error) => console.log(error));
 
-    api
-      .get(`/users/${3}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((response) => {
-        mySetUser(response.data);
-      })
-      .catch((error) => console.log(error));
 
     const messengerObj = {
       from_name: myUser.name,
