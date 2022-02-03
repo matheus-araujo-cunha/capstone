@@ -13,12 +13,19 @@ import { useState } from "react";
 
 interface MessengerModalPros {
   car: {
-    name: string;
-    age: string;
-    km: string;
-    description: string;
-    propeietario: string;
-    userId: number;
+  
+      name: string;
+      model: string;
+      description: string;
+      year: string;
+      km: string;
+      id?: number;
+      img: any;
+      pending: boolean;
+      available: boolean;
+      ownerId: string;
+      user?: User;
+    
   };
 }
 const MessengerModal = ({ car }: MessengerModalPros) => {

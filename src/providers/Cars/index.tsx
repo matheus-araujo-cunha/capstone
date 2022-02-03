@@ -86,15 +86,14 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
 
   const registerCar = useCallback(
     async (car: Omit<Car, "id">, accessToken: string) => {
-      axios
+       axios
         .post("https://api.imgur.com/3/image", car.img, {
           headers: {
             Authorization: `Client-ID ${idApiImgur}`,
           },
         })
         .then((response) => {
-          car.img = response.data.data.link;
-
+          car.img = response.data.data.link; 
           api
             .post("/cars", car, {
               headers: {
@@ -107,7 +106,7 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
               setMyCars((oldMyCars) => [...oldMyCars, response.data]);
             })
             .catch((error) => console.log(error));
-        });
+       });
     },
     []
   );

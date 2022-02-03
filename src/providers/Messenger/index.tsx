@@ -16,12 +16,19 @@ interface MessengerProviderProps {
 }
 
 interface Car {
-  name: string;
-  age: string;
-  km: string;
-  description: string;
-  propeietario: string;
-  userId: number;
+  
+    name: string;
+    model: string;
+    description: string;
+    year: string;
+    km: string;
+    id?: number;
+    img: any;
+    pending: boolean;
+    available: boolean;
+    ownerId: string;
+    user?: User;
+  
 }
 
 interface User {
@@ -53,6 +60,7 @@ export const MessengerProider = ({ children }: MessengerProviderProps) => {
     const accessToken = localStorage.getItem("@Capstone:accessToken") 
     const myuser = localStorage.getItem("@Capstone:user") || null; 
     setMyUser(myuser);
+    console.log(myUser)
     api
       .get(`/users/${car.userId}`, {
         headers: {

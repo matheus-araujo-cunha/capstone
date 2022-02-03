@@ -198,7 +198,7 @@ export const ModalKnowMore = ({
             <Typography fontWeight="bold">{car.user?.state}</Typography>
           </Paper>
         )}
-        <MessengerModal car={cars} />
+        <MessengerModal car={car} />
         <Button onClick={isOpemModalMessengerFunction} color="1">
           Alugar
         </Button>

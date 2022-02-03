@@ -36,8 +36,9 @@ const Login = () => {
   } = useForm<SignInCredentials>({
     resolver: yupResolver(formSchema),
   });
-
+  const history = useHistory();
   const onSubmitFunction = (data: SignInCredentials) => {
+    
     signIn(data);
     // setTimeout(function () {
     //   window.location.reload();
@@ -78,7 +79,7 @@ const Login = () => {
               Logar
             </Button>
             <Cade>Não possui conta? Cadastre-se!</Cade>
-            <Button color="1">
+            <Button color="1" onClick={() => history.push("/signup")}>
               Ir para cadastro
             </Button>
           </div>
