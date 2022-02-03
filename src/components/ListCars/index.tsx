@@ -1,16 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../providers/Auth";
+import { useCars } from "../../providers/Cars";
 import { CardCar } from "../CardCar";
+import { CardPageSearch } from "../CardPageSearch";
 import { Container } from "./styles";
 
+interface User {
+  name: string;
+  email: string;
+  id: number;
+  password: string;
+  state: string;
+}
+interface CarSearch {
+  name: string;
+  model: string;
+  description: string;
+  year: string;
+  km: string;
+  id?: number;
+  img: any;
+  pending: boolean;
+  available: boolean;
+  userId: string;
+  user: User;
+}
 interface ListCarsProps {
-  handleOpenKnowMore: () => void;
+  handleOpenKnowMore: (car: CarSearch) => void;
 }
 
 export const ListCars = ({ handleOpenKnowMore }: ListCarsProps) => {
+  const { loadCars, cars } = useCars();
+
+  const { accessToken, user } = useAuth();
+
+  useEffect(() => {
+    loadCars(accessToken, Number(user.id));
+  }, []);
+
   return (
     <Container>
-      {[1, 2, 3, 4, 5].map((n, i) => (
-        <CardCar handleOpenKnowMore={handleOpenKnowMore} key={i} />
+      {cars.map((car) => (
+        <CardPageSearch
+          handleOpenKnowMore={handleOpenKnowMore}
+          key={car.id}
+          searchCar={car}
+        />
       ))}
     </Container>
   );

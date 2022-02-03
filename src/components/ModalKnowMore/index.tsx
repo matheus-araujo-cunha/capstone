@@ -10,14 +10,45 @@ import {
 import { Button } from "../Button";
 import UseMediaQuery from "@mui/material/useMediaQuery";
 import CloseIcon from "@mui/icons-material/Close";
+import { useMessenger } from "../../providers/Messenger";
+import { MessengerModal } from "../Modal/MessengerModal";
+import { useState } from "react";
 
 interface ModalKnowMoreProps {
   open: boolean;
   handleClose: () => void;
+  car: CarSearch;
 }
 
-export const ModalKnowMore = ({ open, handleClose }: ModalKnowMoreProps) => {
+interface User {
+  name: string;
+  email: string;
+  id: number;
+  password: string;
+  state: string;
+}
+interface CarSearch {
+  name: string;
+  model: string;
+  description: string;
+  year: string;
+  km: string;
+  id?: number;
+  img: any;
+  pending: boolean;
+  available: boolean;
+  userId: string;
+  user?:User
+}
+
+export const ModalKnowMore = ({
+  open,
+  handleClose,
+  car,
+}: ModalKnowMoreProps) => {
   const isWideVersion = UseMediaQuery("(min-width: 768px)");
+
+  const { sendEmail, isOpemModalMessengerFunction } = useMessenger();
 
   return (
     <Dialog
@@ -59,7 +90,7 @@ export const ModalKnowMore = ({ open, handleClose }: ModalKnowMoreProps) => {
         }}
       >
         <img
-          src="https://2img.net/h/oi62.tinypic.com/dqr6l5.jpg"
+          src={car.img}
           alt="carro"
           style={{
             width: isWideVersion ? "50%" : "100%",
@@ -79,12 +110,12 @@ export const ModalKnowMore = ({ open, handleClose }: ModalKnowMoreProps) => {
             borderRadius: "8px",
           }}
         >
-          <Typography>Chevrolet Corsa 2.0</Typography>
-          <Typography>Ano - 2018</Typography>
-          <Typography>KM - 80.000</Typography>
           <Typography>
-            1.4 MI STD 8V FLEX 3P MANUAL 1.4 MI STD 8V FLEX 3P MANUAL
+            {car.model} {car.name}
           </Typography>
+          <Typography>Ano - {car.year}</Typography>
+          <Typography>KM - {car.km}</Typography>
+          <Typography>{car.description} </Typography>
         </Paper>
 
         {!isWideVersion && (
@@ -96,7 +127,6 @@ export const ModalKnowMore = ({ open, handleClose }: ModalKnowMoreProps) => {
               backgroundColor: "#FA6300",
               borderRadius: "8px",
               color: "white",
-              //   minHeight: "50px",
             }}
           >
             <Typography fontSize="15px" fontWeight="bold">
@@ -134,14 +164,16 @@ export const ModalKnowMore = ({ open, handleClose }: ModalKnowMoreProps) => {
             }}
           >
             <Typography fontSize="15px" fontWeight="bold">
-              Proprietário :
+              Proprietário:
             </Typography>
-            <Typography fontWeight="bold">Fulano de tal</Typography>
-            <Typography fontWeight="bold">São Paulo</Typography>
+            <Typography fontWeight="bold">{car.user?.name}</Typography>
+            <Typography fontWeight="bold">{car.user?.state}</Typography>
           </Paper>
         )}
-
-        <Button color="1">Alugar</Button>
+        <MessengerModal car={car} />
+        <Button onClick={isOpemModalMessengerFunction} color="1">
+          Alugar
+        </Button>
       </DialogActions>
     </Dialog>
   );

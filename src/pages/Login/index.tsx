@@ -1,8 +1,8 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useHistory } from "react-router-dom";
 import { TextField } from "@mui/material";
+import {useHistory} from "react-router-dom"
 import {
   Form,
   Error,
@@ -14,6 +14,7 @@ import {
   Content,
 } from "./styles";
 import { Button } from "../../components/Button";
+import { useAuth } from "../../providers/Auth";
 
 interface SignInCredentials {
   email: string;
@@ -21,8 +22,7 @@ interface SignInCredentials {
 }
 
 const Login = () => {
-  const history = useHistory();
-  // const { signIn } = useAuth();
+  const { signIn } = useAuth();
 
   const formSchema = yup.object().shape({
     email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
@@ -36,9 +36,10 @@ const Login = () => {
   } = useForm<SignInCredentials>({
     resolver: yupResolver(formSchema),
   });
-
+  const history = useHistory();
   const onSubmitFunction = (data: SignInCredentials) => {
-    // signIn(data);
+    
+    signIn(data);
     // setTimeout(function () {
     //   window.location.reload();
     // }, 500);
@@ -74,11 +75,11 @@ const Login = () => {
             <Error>
               {errors.email?.message && <span>{errors.password?.message}</span>}
             </Error>
-            <Button type="submit" color="true">
+            <Button type="submit" color="2">
               Logar
             </Button>
             <Cade>Não possui conta? Cadastre-se!</Cade>
-            <Button onClick={() => history.push("/signup")}>
+            <Button color="1" onClick={() => history.push("/signup")}>
               Ir para cadastro
             </Button>
           </div>

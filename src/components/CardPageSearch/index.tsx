@@ -1,32 +1,43 @@
 import { Box, Card, CardActions, CardContent, Typography } from "@mui/material";
-import { Button } from "../Button";
-import { CardButton, Container, Image } from "./styles";
+import { CardButton, Image } from "../CardCar/styles";
+
 import UseMediaQuery from "@mui/material/useMediaQuery";
 
-interface CardCarProps {
-  handleOpenDetail: (car: Car) => void;
-  car: Car;
-}
-
-interface Car {
+interface CarSearch {
   name: string;
   model: string;
   description: string;
   year: string;
   km: string;
-  id: number;
+  id?: number;
   img: any;
   pending: boolean;
   available: boolean;
   userId: string;
-  clientId?: string;
+  user: User;
 }
 
-export const CardCar = ({ handleOpenDetail, car }: CardCarProps) => {
+interface User {
+  name: string;
+  email: string;
+  id: number;
+  password: string;
+  state: string;
+}
+
+interface CardPageSearchProps {
+  searchCar: CarSearch;
+  handleOpenKnowMore: (car: CarSearch) => void;
+}
+
+export const CardPageSearch = ({
+  searchCar,
+  handleOpenKnowMore,
+}: CardPageSearchProps) => {
   const isWideVersion = UseMediaQuery("(min-width:768px)");
 
-  const openDetailModal = () => {
-    handleOpenDetail(car);
+  const openKnowMore = () => {
+    handleOpenKnowMore(searchCar);
   };
 
   return (
@@ -40,14 +51,14 @@ export const CardCar = ({ handleOpenDetail, car }: CardCarProps) => {
         flexDirection: "column",
       }}
     >
-      <Image src={car.img} alt="carro" />
+      <Image src={searchCar.img} alt="carro" />
       <CardContent>
         <Box display="flex" gap={1}>
           <Typography gutterBottom variant="h5" component="div">
-            {car.model}
+            {searchCar.model}
           </Typography>
           <Typography gutterBottom variant="h5" component="div">
-            {car.name}
+            {searchCar.name}
           </Typography>
         </Box>
         <Typography
@@ -55,13 +66,11 @@ export const CardCar = ({ handleOpenDetail, car }: CardCarProps) => {
           color="text.secondary"
           sx={{ color: "#333333", fontWeight: "500" }}
         >
-          {car.description}
+          {searchCar.description}
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: "flex-end" }}>
-        <CardButton myCars onClick={openDetailModal}>
-          Detalhes
-        </CardButton>
+        <CardButton onClick={openKnowMore}> Saiba mais </CardButton>
       </CardActions>
     </Card>
   );
