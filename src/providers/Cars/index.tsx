@@ -54,7 +54,7 @@ interface CarsContextData {
   cars: CarSearch[];
   myCars: Car[];
   loadMyCars: (accessToken: string, userId: string) => Promise<void>;
-  loadCars: (accessToken: string, userId: number) => Promise<void>;
+  loadCars: (accessToken: string) => Promise<void>;
   registerCar: (data: Omit<Car, "id">, accessToken: string) => Promise<void>;
   deleteCar: (accessToken: string, carId: number) => Promise<void>;
   updateCar: (data: Car, accessToken: string, userId: number) => Promise<void>;
@@ -70,6 +70,7 @@ interface CarsContextData {
     userId: number
   ) => Promise<void>;
   findCar: (nameCar: string, accessToken: string) => Promise<void>;
+  filterByState: (state: string) => void;
 }
 
 const CarsContext = createContext<CarsContextData>({} as CarsContextData);
@@ -188,7 +189,13 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
       },
     });
 
-    setCars(response.data);
+    if (response.data.length !== 0) {
+      setCars(response.data);
+    } else {
+      const secondResponse = await api.get(`/cars?model_like=${nameCar}`);
+
+      setCars(secondResponse.data);
+    }
   }, []);
 
   const locateCar = useCallback(
@@ -259,6 +266,12 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
     []
   );
 
+  const filterByState = (state: string) => {
+    const filterState = cars.filter((car) => car.user.state === state);
+
+    setCars(filterState);
+  };
+
   return (
     <CarsContext.Provider
       value={{
@@ -273,6 +286,7 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
         locateCar,
         findCar,
         findMyCar,
+        filterByState,
       }}
     >
       {children}

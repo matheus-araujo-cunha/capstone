@@ -40,22 +40,22 @@ export const CardPageSearch = ({
     handleOpenKnowMore(searchCar);
   };
 
-  console.log(searchCar);
-
   return (
     <Card
       sx={{
         width: isWideVersion ? "30%" : "100%",
+        minHeight: "380px",
         borderRadius: "25px",
         boxShadow: " 0 0 0 1px",
         backgroundColor: "#F4F5F6",
         display: "flex",
         flexDirection: "column",
+        justifyContent: "space-between",
       }}
     >
       <Image src={searchCar.img} alt="carro" />
       <CardContent>
-        <Box display="flex" gap={1}>
+        <Box display="flex" gap={1} sx={{}}>
           <Typography gutterBottom variant="h5" component="div">
             {`${searchCar.model
               ?.charAt(0)

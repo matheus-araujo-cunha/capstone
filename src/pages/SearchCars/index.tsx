@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { ListCars } from "../../components/ListCars";
 import { ModalKnowMore } from "../../components/ModalKnowMore";
@@ -44,14 +44,28 @@ interface CarSearch {
 }
 
 interface SearchData {
-  name: string;
+  search: string;
 }
 
 export const SearchCar = () => {
   const [openKnowMore, setOpenKnowMore] = useState<boolean>(false);
   const [carSelected, setCarSelected] = useState<CarSearch>({} as CarSearch);
 
-  const [teste, setTeste] = useState("");
+  const [valueFilter, setvalueFilter] = useState("");
+
+  const { myCars, findCar, cars, filterByState, loadCars } = useCars();
+
+  const { user, accessToken } = useAuth();
+
+  useEffect(() => {
+    if (valueFilter === "10") {
+      filterByState(user.state);
+    } else if (valueFilter === "20") {
+      loadCars(accessToken);
+    } else {
+      loadCars(accessToken);
+    }
+  }, [valueFilter]);
 
   const handleCloseKnowMore = () => {
     setOpenKnowMore(false);
@@ -62,20 +76,21 @@ export const SearchCar = () => {
     setOpenKnowMore(true);
   };
 
+  const handleFilter = () => {
+    return valueFilter;
+  };
+
   const handleChange = (event: SelectChangeEvent) => {
-    setTeste(event.target.value as string);
+    setvalueFilter(event.target.value as string);
   };
 
   const isWideVersion = UseMediaQuery("(min-width: 768px)");
 
-  const { myCars, findCar } = useCars();
-
   const { register, handleSubmit } = useForm<SearchData>();
 
-  const { user, accessToken } = useAuth();
-
   const onSubmit = (data: SearchData) => {
-    findCar(data.name, accessToken);
+    findCar(data.search, accessToken);
+    console.log(cars);
   };
 
   return (
@@ -89,8 +104,9 @@ export const SearchCar = () => {
 
       <SearchArea onSubmit={handleSubmit(onSubmit)}>
         <TextField
-          label="Pesquise por um carro"
-          {...register("name")}
+          placeholder="Pesquise por um carro"
+          size="medium"
+          {...register("search")}
           InputProps={{
             endAdornment: (
               <InputAdornment
@@ -100,9 +116,9 @@ export const SearchCar = () => {
                 sx={{
                   border: "none",
                   padding: "10px 0",
-                  height: "100%",
-                  width: "25%",
                   maxWidth: "50px",
+                  height: "100%",
+                  width: "50%",
                   borderRadius: "8px",
                   backgroundColor: "orange",
                   display: "flex",
@@ -132,7 +148,7 @@ export const SearchCar = () => {
           >
             <InputLabel>Selecionar filtro</InputLabel>
             <Select
-              value={teste}
+              value={valueFilter}
               label="Selecionar filtro"
               onChange={handleChange}
             >
@@ -140,8 +156,8 @@ export const SearchCar = () => {
                 <em></em>
               </MenuItem>
               <MenuItem value="10">Estado</MenuItem>
-              <MenuItem value="20">Ordem altabética</MenuItem>
-              <MenuItem value="30">Ano do carro</MenuItem>
+              <MenuItem value="20">Ano do carro</MenuItem>
+              <MenuItem value="30">Limpar filtro</MenuItem>
             </Select>
           </FormControl>
         </Box>

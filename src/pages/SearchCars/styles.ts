@@ -6,7 +6,7 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const SearchArea = styled.section`
+export const SearchArea = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
