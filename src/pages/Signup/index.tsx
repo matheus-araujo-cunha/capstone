@@ -70,8 +70,8 @@ export const Signup = () => {
           <section>
             <div className="title-1">Kenzie</div>
             <div className="title-2">CarShop</div>
-            <img src={logo} alt="logo" />
           </section>
+            <img src={logo} alt="logo" />
         </Title>
         <Form onSubmit={handleSubmit(onSubmitFunction)}>
           <Text>

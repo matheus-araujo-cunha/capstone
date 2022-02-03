@@ -75,14 +75,16 @@ export const Header = styled.div`
   height: 85px;
   background-color: #462a71;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 2.5%;
 
   .logo {
     display: flex;
     align-items: center;
     img {
       width: 75px;
+      border-radius: 10px;
     }
   }
   .container-buttons {
@@ -99,10 +101,14 @@ export const Header = styled.div`
     .btn-cadastro {
       background-color: #fff;
       color: #f26202;
+      margin: 0 10px;
+
     }
     .btn-login {
       background-color: #f26202;
       color: #fff;
+      margin: 0 10px;
+
     }
     button + button {
       margin-left: 30px;
@@ -123,6 +129,7 @@ export const ContainerTitle = styled.div`
   h1 {
     color: #462a71;
     font-size: 4.5rem;
+    font-weight: 600;
     @media screen and (min-width: 1024px) {
       font-size: 6rem;
     }
