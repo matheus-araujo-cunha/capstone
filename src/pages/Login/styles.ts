@@ -3,66 +3,80 @@ import img from "../../assets/login.png";
 
 export const Main = styled.div`
   color: #462a71;
-  font-size: 50px;
-  margin-top: -100px;
-  margin-left: -50px;
-  @media (max-width: 1000px) {
-    display: none;
-  }
+  font-size: 35px;
+  font-weight: 600;
+/*   @media (min-width: 1000px) {
+    font-size: 50px
+  } */
 `;
 export const Second = styled.div`
   color: #fa6300;
-  font-size: 40px;
-  @media (max-width: 1000px) {
-    display: none;
-  }
+  font-size: 30px;
+  font-weight: 600;
+  /* @media (min-width: 1000px) {
+    font-size: 45px
+  } */
 `;
 
 export const Content = styled.div`
-  img {
-    display: only;
-    margin-top: 200px;
-    width: 100%;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img{
+    display: none;
   }
+
   @media (min-width: 1000px) {
-    background-image: url(${img});
+    
+    img{
+      display: flex;
+      width: 50%;
+    }
   }
 `;
 
 export const Container = styled.div`
-  padding: 20px 10px 10px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  @media (min-width: 1000px) {
-    padding: 20px 10px 10px 700px;
+  justify-content: center;
+  width: 100%;
+  height: 90vh;
+  .form {
+    order: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: flex;
     flex-direction: column;
-    justify-content: center;
-
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  @media (min-width: 1000px) {
+    width: 40%;
+    height: 100vh;
+    flex-direction: column;
     .header {
       order: 2;
-    }
-    .form {
-      order: 1;
-      margin-right: 40px;
-      display: block;
-      max-width: 442px;
     }
   }
 `;
 
 export const Form = styled.form`
+  padding: 20px;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  padding: 30px 0px 10px 30px;
+  align-items: center;
   box-sizing: border-box;
   margin-top: 20px;
-  width: 100%;
+  width: 95%;
+  height: 100%;
   max-width: 442px;
-  background: #ffffff;
-  border: 2px solid #f5f5f5;
+  background-color:  #fff;
+  border: 2px solid var(--color-secondary);
   box-sizing: border-box;
   box-shadow: 0px 0px 30px -20px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
@@ -88,7 +102,7 @@ export const Error = styled.ul`
 export const P = styled.p`
   color: #fa6300;
   margin-bottom: 30px;
-  align-self: flex-start;
+  width: 100%;
 `;
 
 export const Cade = styled.p`
