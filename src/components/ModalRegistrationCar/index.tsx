@@ -34,7 +34,7 @@ interface DataRegisterCar {
   img: any;
   pending: boolean;
   available: boolean;
-  ownerId: string;
+  userId: string;
 }
 
 export const ModalRegistrationCar = ({
@@ -65,7 +65,7 @@ export const ModalRegistrationCar = ({
     const newData = {
       ...data,
       available: true,
-      ownerId: user.id,
+      userId: user.id,
       pending: false,
     };
     const dataImage = new FormData();

@@ -22,8 +22,8 @@ interface CarSearch {
   img: any;
   pending: boolean;
   available: boolean;
-  ownerId: string;
-  user:User
+  userId: string;
+  user: User;
 }
 interface ListCarsProps {
   handleOpenKnowMore: (car: CarSearch) => void;

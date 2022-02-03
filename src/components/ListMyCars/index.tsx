@@ -13,7 +13,7 @@ interface Car {
   img: any;
   pending: boolean;
   available: boolean;
-  ownerId: string;
+  userId: string;
   clientId?:string;
 }
 interface ListMyCarsProps {

@@ -34,7 +34,7 @@ interface CarSearch {
   img: any;
   pending: boolean;
   available: boolean;
-  ownerId: string;
+  userId: string;
   user?: User;
 }
 

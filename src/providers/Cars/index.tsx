@@ -24,7 +24,7 @@ interface Car {
   id: number;
   renterId?: number;
   pending: boolean;
-  ownerId: string;
+  userId: string;
   clientId?: string;
 }
 
@@ -46,7 +46,7 @@ interface CarSearch {
   img: any;
   pending: boolean;
   available: boolean;
-  ownerId: string;
+  userId: string;
   user: User;
 }
 
@@ -115,7 +115,7 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
   const loadMyCars = useCallback(
     async (accessToken: string, userId: string) => {
       api
-        .get(`/cars?ownerId=${userId}`, {
+        .get(`/cars?userId=${userId}`, {
           headers: {
             Authorization: `Bearer  ${accessToken}`,
           },
