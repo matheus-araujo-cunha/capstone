@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Button,
   TextField,
@@ -12,11 +13,8 @@ import {
   MenuItem,
   Box,
 } from "@mui/material";
-
 import { useForm } from "react-hook-form";
-
 import { AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
 import { useAuth } from "../../providers/Auth";
 import { api } from "../../services/api";
 
@@ -49,12 +47,7 @@ const ConfigurationModal = ({
   const { user, accessToken, setData } = useAuth();
   const [state, setState] = useState();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<UserData>();
+  const { register, handleSubmit, reset } = useForm<UserData>();
 
   const handleSelect = () => {
     setState(state);

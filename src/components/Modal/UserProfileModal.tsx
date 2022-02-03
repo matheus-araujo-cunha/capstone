@@ -9,9 +9,9 @@ import {
   Dialog,
   Typography as Text,
 } from "@mui/material";
-
 import { blue } from "@mui/material/colors";
 import { useAuth } from "../../providers/Auth";
+
 interface UserProfileModalProps {
   handleCloseProfileModal: () => void;
   openProfileModal: boolean;
