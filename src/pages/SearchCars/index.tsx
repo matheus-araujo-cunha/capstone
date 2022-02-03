@@ -37,7 +37,7 @@ interface CarSearch {
   pending: boolean;
   available: boolean;
   userId: string;
-  user:User
+  user?:User
 }
 
 export const SearchCar = () => {

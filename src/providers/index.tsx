@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { AuthProvider } from "./Auth";
 import { CarsProviders } from "./Cars";
+import { MessengerProider } from "./Messenger";
 
 interface ProviderProps {
   children: ReactNode;
@@ -9,7 +10,9 @@ interface ProviderProps {
 export const Providers = ({ children }: ProviderProps) => {
   return (
     <AuthProvider>
-      <CarsProviders>{children}</CarsProviders>
+      <MessengerProider>
+        <CarsProviders>{children}</CarsProviders>
+      </MessengerProider>
     </AuthProvider>
   );
 };

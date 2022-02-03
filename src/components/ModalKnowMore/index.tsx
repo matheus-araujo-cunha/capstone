@@ -10,6 +10,9 @@ import {
 import { Button } from "../Button";
 import UseMediaQuery from "@mui/material/useMediaQuery";
 import CloseIcon from "@mui/icons-material/Close";
+import { useMessenger } from "../../providers/Messenger";
+import { MessengerModal } from "../Modal/MessengerModal";
+import { useState } from "react";
 
 interface ModalKnowMoreProps {
   open: boolean;
@@ -22,7 +25,7 @@ interface User {
   email: string;
   id: number;
   password: string;
-  state?: string;
+  state: string;
 }
 interface CarSearch {
   name: string;
@@ -35,7 +38,7 @@ interface CarSearch {
   pending: boolean;
   available: boolean;
   userId: string;
-  user?: User;
+  user?:User
 }
 
 export const ModalKnowMore = ({
@@ -45,7 +48,7 @@ export const ModalKnowMore = ({
 }: ModalKnowMoreProps) => {
   const isWideVersion = UseMediaQuery("(min-width: 768px)");
 
-  console.log(car.user?.name);
+  const { sendEmail, isOpemModalMessengerFunction } = useMessenger();
 
   return (
     <Dialog
@@ -167,8 +170,10 @@ export const ModalKnowMore = ({
             <Typography fontWeight="bold">{car.user?.state}</Typography>
           </Paper>
         )}
-
-        <Button color="1">Alugar</Button>
+        <MessengerModal car={car} />
+        <Button onClick={isOpemModalMessengerFunction} color="1">
+          Alugar
+        </Button>
       </DialogActions>
     </Dialog>
   );
