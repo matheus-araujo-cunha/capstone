@@ -18,7 +18,7 @@ interface SignInCredentials {
 }
 
 interface User {
-  id: number;
+  id: string;
   email: string;
   name: string;
   city: string;

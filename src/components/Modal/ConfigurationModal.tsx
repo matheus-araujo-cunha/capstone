@@ -31,7 +31,7 @@ interface UserData {
 }
 
 interface User {
-  id: number;
+  id: string;
   email: string;
   name: string;
   city: string;
