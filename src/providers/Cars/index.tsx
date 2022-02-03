@@ -82,7 +82,7 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
   const [cars, setCars] = useState<CarSearch[]>([]);
   const [myCars, setMyCars] = useState<Car[]>([]);
 
-  const idApiImgur = "ad930cc234bb93b";
+  const idApiImgur = "48edb5f43f21ee7";
 
   const registerCar = useCallback(
     async (car: Omit<Car, "id">, accessToken: string) => {

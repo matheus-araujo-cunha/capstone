@@ -45,8 +45,6 @@ export const ModalKnowMore = ({
 }: ModalKnowMoreProps) => {
   const isWideVersion = UseMediaQuery("(min-width: 768px)");
 
-  console.log(car.user?.name);
-
   return (
     <Dialog
       fullWidth={true}
@@ -129,8 +127,8 @@ export const ModalKnowMore = ({
             <Typography fontSize="15px" fontWeight="bold">
               Proprietário :
             </Typography>
-            <Typography fontWeight="bold">Fulano de tal</Typography>
-            <Typography fontWeight="bold">São Paulo</Typography>
+            <Typography fontWeight="bold">{car.user?.name}</Typography>
+            <Typography fontWeight="bold">{car.user?.state}</Typography>
           </Paper>
         )}
       </DialogContent>
