@@ -10,11 +10,22 @@ import {
 import { Button } from "../Button";
 import UseMediaQuery from "@mui/material/useMediaQuery";
 import CloseIcon from "@mui/icons-material/Close";
+import { useMessenger } from "../../providers/Messenger";
+import { MessengerModal } from "../Modal/MessengerModal";
+import { useState } from "react";
 
 interface ModalKnowMoreProps {
   open: boolean;
   handleClose: () => void;
   car: CarSearch;
+}
+interface Car {
+  name: string;
+  age: string;
+  km: string;
+  description: string;
+  propeietario: string;
+  userId: number;
 }
 
 interface User {
@@ -45,7 +56,27 @@ export const ModalKnowMore = ({
 }: ModalKnowMoreProps) => {
   const isWideVersion = UseMediaQuery("(min-width: 768px)");
 
-  console.log(car.user?.name);
+
+
+  const { sendEmail, isOpemModalMessengerFunction } = useMessenger();
+  const [cars, setCars] = useState<Car>({
+    name: "Chevrolet Corsa 2.0",
+    age: "2018",
+    km: "80.000",
+    description: "1.4 MI STD 8V FLEX 3P MANUAL 1.4 MI STD 8V FLEX 3P MANUAL",
+    propeietario: "Willian Gustavo",
+    userId: 2,
+  });
+  
+  const email = {
+    from_name: "Willian",
+    to_name: "Giovana Pereira de Santana",
+    anuncio: "Silveirado 6c 4.2 Turbo 1999",
+    periodo: "10 dias",
+    email: "ra110059@uem.br",
+    from_email: "ra110059@uem.br",
+  };
+
 
   return (
     <Dialog
@@ -167,8 +198,10 @@ export const ModalKnowMore = ({
             <Typography fontWeight="bold">{car.user?.state}</Typography>
           </Paper>
         )}
-
-        <Button color="1">Alugar</Button>
+        <MessengerModal car={cars} />
+        <Button onClick={isOpemModalMessengerFunction} color="1">
+          Alugar
+        </Button>
       </DialogActions>
     </Dialog>
   );
