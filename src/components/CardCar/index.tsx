@@ -43,10 +43,10 @@ export const CardCar = ({ handleOpenDetail, car }: CardCarProps) => {
       <CardContent>
         <Box display="flex" gap={1}>
           <Typography gutterBottom variant="h5" component="div">
-            {`${car.model.charAt(0).toUpperCase()}${car.model.slice(1)}`}
+            {`${car.model?.charAt(0).toUpperCase()}${car.model?.slice(1)}`}
           </Typography>
           <Typography gutterBottom variant="h5" component="div">
-            {`${car.name.charAt(0).toUpperCase()}${car.name.slice(1)}`}
+            {`${car.name?.charAt(0).toUpperCase()}${car.name?.slice(1)}`}
           </Typography>
         </Box>
         <Typography

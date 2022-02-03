@@ -34,6 +34,8 @@ export const ListCars = ({ handleOpenKnowMore }: ListCarsProps) => {
 
   const { accessToken, user } = useAuth();
 
+  console.log(cars)
+
   useEffect(() => {
     loadCars(accessToken, Number(user.id));
   }, []);
@@ -42,6 +44,8 @@ export const ListCars = ({ handleOpenKnowMore }: ListCarsProps) => {
     (car) => car.available === true && car.userId !== user.id
   );
 
+
+  console.log(carsAvailable)
   return (
     <Container>
       {carsAvailable.map((car) => (

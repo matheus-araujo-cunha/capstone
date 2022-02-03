@@ -40,6 +40,8 @@ export const CardPageSearch = ({
     handleOpenKnowMore(searchCar);
   };
 
+  console.log(searchCar);
+
   return (
     <Card
       sx={{

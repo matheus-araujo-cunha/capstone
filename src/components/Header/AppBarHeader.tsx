@@ -127,15 +127,6 @@ const AppBarHeader = ({
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <IconButton
             size="large"
-            aria-label="show 4 new mails"
-            color="inherit"
-          >
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <IconButton
-            size="large"
             edge="end"
             aria-label="account of current user"
             aria-controls={menuId}
