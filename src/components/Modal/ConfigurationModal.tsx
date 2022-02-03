@@ -15,8 +15,10 @@ import {
 
 import { useForm } from "react-hook-form";
 
+import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../providers/Auth";
+import { api } from "../../services/api";
 
 interface UserProfileModalProps {
   handleCloseConfigurationModal: () => void;
@@ -24,19 +26,27 @@ interface UserProfileModalProps {
 }
 
 interface UserData {
-  name?: string;
-  description?: string;
-  city?: string;
-  state?: string;
-  password?: string;
-  password_confirmation?: string;
+  name: string;
+  description: string;
+  city: string;
+  state: string;
+}
+
+interface User {
+  id: number;
+  email: string;
+  name: string;
+  city: string;
+  state: string;
+  description: string;
+  password: string;
 }
 
 const ConfigurationModal = ({
   openConfigurationModal,
   handleCloseConfigurationModal,
 }: UserProfileModalProps) => {
-  const { user } = useAuth();
+  const { user, accessToken, setData } = useAuth();
   const [state, setState] = useState();
 
   const {
@@ -56,7 +66,20 @@ const ConfigurationModal = ({
     if (objectValues.every((value) => value.length === 0)) {
       handleCloseConfigurationModal();
     } else {
-      console.log(data);
+      api
+        .patch(`users/${user.id}`, data, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((response: AxiosResponse<User>) => {
+          const user = response.data;
+
+          setData({ accessToken, user });
+          localStorage.setItem("@Capstone:user", JSON.stringify(user));
+        })
+        .catch((err) => console.log(err));
+
       handleCloseConfigurationModal();
       reset();
     }
@@ -149,24 +172,6 @@ const ConfigurationModal = ({
                 <MenuItem value="EX">Estrangeiro</MenuItem>
               </Select>
             </FormControl>
-            <TextField
-              margin="dense"
-              id="password"
-              label="Nova senha"
-              type="password"
-              {...register("password")}
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="password_confirmation"
-              label="Confirme a senha"
-              type="password"
-              {...register("password_confirmation")}
-              fullWidth
-              variant="standard"
-            />
             <DialogActions>
               <Button onClick={handleCloseConfigurationModal}>Cancelar</Button>
               <Button variant="contained" type="submit" color="secondary">

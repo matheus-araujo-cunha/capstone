@@ -18,12 +18,13 @@ interface SignInCredentials {
 }
 
 interface User {
-  id: string;
+  id: number;
   email: string;
   name: string;
   city: string;
   state: string;
   description: string;
+  password?: string;
 }
 
 interface AuthState {
@@ -36,6 +37,7 @@ interface AuthContextData {
   accessToken: string;
   signIn: (credentials: SignInCredentials) => Promise<void>;
   logOut: () => void;
+  setData: (data: AuthState) => void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -86,6 +88,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         user: data.user,
         signIn,
         logOut,
+        setData,
       }}
     >
       {children}
