@@ -74,7 +74,8 @@ const AppBarHeader = ({
               alignItems: "center",
               height: isWideVersion ? "60%" : "70%",
               gap: 2,
-              width: isWideVersion ? "50%" : "90%",
+              width: "330px",
+              
             }}
           >
             <Box
@@ -84,7 +85,7 @@ const AppBarHeader = ({
                 height: "35px",
                 // minWidth: "80px",
                 maxWidth: "300px",
-                borderRadius: "33px",
+                borderRadius: "10px",
                 color: "white",
                 padding: "2px 20px",
                 backgroundColor: pathname === "/myCars" ? "#37404E" : "inherit",
@@ -106,7 +107,7 @@ const AppBarHeader = ({
                 height: "35px",
                 // minWidth: "80px",
                 maxWidth: "300px",
-                borderRadius: "33px",
+                borderRadius: "10px",
                 padding: "2px 20px",
                 backgroundColor:
                   pathname === "/searchCars" ? "#37404E" : "inherit",

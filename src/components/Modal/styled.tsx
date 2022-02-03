@@ -14,6 +14,11 @@ export const Conteiner = styled.div`
         width: 100%;
         justify-content: space-between;
     }
+    @media screen and (max-width:900px){
+        padding: 10px;
+        width: 100%;
+        height: 80vh;
+    }
 `
 
 export const Header = styled.div`
