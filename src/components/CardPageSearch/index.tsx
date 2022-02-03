@@ -55,10 +55,14 @@ export const CardPageSearch = ({
       <CardContent>
         <Box display="flex" gap={1}>
           <Typography gutterBottom variant="h5" component="div">
-            {searchCar.model}
+            {`${searchCar.model
+              ?.charAt(0)
+              .toUpperCase()}${searchCar.model?.slice(1)}`}
           </Typography>
           <Typography gutterBottom variant="h5" component="div">
-            {searchCar.name}
+            {`${searchCar.name?.charAt(0).toUpperCase()}${searchCar.name?.slice(
+              1
+            )}`}
           </Typography>
         </Box>
         <Typography

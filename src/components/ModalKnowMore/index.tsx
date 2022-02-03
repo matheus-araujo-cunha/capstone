@@ -38,7 +38,7 @@ interface CarSearch {
   pending: boolean;
   available: boolean;
   userId: string;
-  user?:User
+  user?: User;
 }
 
 export const ModalKnowMore = ({
@@ -111,7 +111,8 @@ export const ModalKnowMore = ({
           }}
         >
           <Typography>
-            {car.model} {car.name}
+            {`${car.model?.charAt(0).toUpperCase()}${car.model?.slice(1)}`}{" "}
+            {`${car.name?.charAt(0).toUpperCase()}${car.name?.slice(1)}`}
           </Typography>
           <Typography>Ano - {car.year}</Typography>
           <Typography>KM - {car.km}</Typography>
@@ -132,8 +133,8 @@ export const ModalKnowMore = ({
             <Typography fontSize="15px" fontWeight="bold">
               Proprietário :
             </Typography>
-            <Typography fontWeight="bold">Fulano de tal</Typography>
-            <Typography fontWeight="bold">São Paulo</Typography>
+            <Typography fontWeight="bold">{car.user?.name}</Typography>
+            <Typography fontWeight="bold">{car.user?.state}</Typography>
           </Paper>
         )}
       </DialogContent>

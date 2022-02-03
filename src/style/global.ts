@@ -21,7 +21,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
-	font-family:"Inter", "sans-serif";
+	font-family: 'Montserrat', sans-serif;
 	box-sizing:border-box;
 }
 
@@ -38,7 +38,7 @@ time, mark, audio, video {
 
 button{
     cursor:pointer;
-	font-family:"Inter", "sans-serif";
+	font-family: 'Montserrat', sans-serif;
 }
 
 :root {

@@ -8,13 +8,13 @@ interface Car {
   model: string;
   description: string;
   year: string;
-  id:number;
+  id: number;
   km: string;
   img: any;
   pending: boolean;
   available: boolean;
   userId: string;
-  clientId?:string;
+  clientId?: string;
 }
 interface ListMyCarsProps {
   handleOpenDetail: (car: Car) => void;

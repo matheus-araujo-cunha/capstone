@@ -67,8 +67,9 @@ export const Form = styled.form`
   box-shadow: 0px 0px 30px -20px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   @media (min-width: 1000px) {
-    width: 700px;
+    width: 400px;
     height: 450px;
+    align-items: center;
   }
 `;
 
@@ -87,6 +88,7 @@ export const Error = styled.ul`
 export const P = styled.p`
   color: #fa6300;
   margin-bottom: 30px;
+  align-self: flex-start;
 `;
 
 export const Cade = styled.p`

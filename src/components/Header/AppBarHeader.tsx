@@ -43,21 +43,12 @@ const AppBarHeader = ({
   return (
     <MaterialAppBar position="static">
       <Toolbar sx={{ backgroundColor: "#462A71" }}>
-        {/* <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton> */}
         <Typography
           variant="h5"
           fontWeight="bold"
           noWrap
           component="div"
-          color="secondary"
+          color="white"
           sx={{ display: { xs: "none", sm: "block" }, marginRight: "10px" }}
         >
           Kenzie CarShop

@@ -64,6 +64,12 @@ interface CarsContextData {
     clientId: number
   ) => Promise<void>;
   locateCar: (accessToken: string, car: Car, clientId: number) => Promise<void>;
+  findMyCar: (
+    nameMyCar: string,
+    accessToken: string,
+    userId: number
+  ) => Promise<void>;
+  findCar: (nameCar: string, accessToken: string) => Promise<void>;
 }
 
 const CarsContext = createContext<CarsContextData>({} as CarsContextData);
@@ -82,18 +88,18 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
   const [cars, setCars] = useState<CarSearch[]>([]);
   const [myCars, setMyCars] = useState<Car[]>([]);
 
-  const idApiImgur = "ad930cc234bb93b";
+  const idApiImgur = "48edb5f43f21ee7";
 
   const registerCar = useCallback(
     async (car: Omit<Car, "id">, accessToken: string) => {
-       axios
+      axios
         .post("https://api.imgur.com/3/image", car.img, {
           headers: {
             Authorization: `Client-ID ${idApiImgur}`,
           },
         })
         .then((response) => {
-          car.img = response.data.data.link; 
+          car.img = response.data.data.link;
           api
             .post("/cars", car, {
               headers: {
@@ -106,7 +112,7 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
               setMyCars((oldMyCars) => [...oldMyCars, response.data]);
             })
             .catch((error) => console.log(error));
-       });
+        });
     },
     []
   );
@@ -265,6 +271,8 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
         loadCars,
         finishLocate,
         locateCar,
+        findCar,
+        findMyCar,
       }}
     >
       {children}
