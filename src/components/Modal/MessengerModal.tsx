@@ -11,24 +11,34 @@ import { Conteiner, Header } from "./styled";
 import { Button } from "../Button";
 import { useState } from "react";
 
-interface MessengerModalPros {
-  car: {
-  
-      name: string;
-      model: string;
-      description: string;
-      year: string;
-      km: string;
-      id?: number;
-      img: any;
-      pending: boolean;
-      available: boolean;
-      ownerId: string;
-      user?: User;
-    
-  };
+interface User {
+  name: string;
+  email: string;
+  id: number;
+  password: string;
+  state: string;
 }
-const MessengerModal = ({ car }: MessengerModalPros) => {
+interface CarSearch {
+ 
+    name: string;
+    model: string;
+    description: string;
+    year: string;
+    km: string;
+    id?: number;
+    img: any;
+    pending: boolean;
+    available: boolean;
+    userId: string;
+    user?:User
+
+}
+
+interface MessengerModalProps {
+  car:CarSearch;
+}
+
+const MessengerModal = ({car}: MessengerModalProps) => {
   const [data, setData] = useState("");
   const [messenger, setMessenger] = useState("");
 
@@ -49,10 +59,8 @@ const MessengerModal = ({ car }: MessengerModalPros) => {
             <AiOutlineClose onClick={isOpemModalMessengerFunction} />
           </Header>
           <DialogContentText>Veiculo: {car.name}</DialogContentText>
-          <DialogContentText>Ano: {car.age}</DialogContentText>
-          <DialogContentText>
-            Proprietario: {car.propeietario}
-          </DialogContentText>
+          <DialogContentText>Ano: {car.year}</DialogContentText>
+          <DialogContentText>Proprietario: {car.user?.name}</DialogContentText>
           {/* <DialogContentText>Cidade: {user.local}</DialogContentText> */}
           <DialogContentText></DialogContentText>
 

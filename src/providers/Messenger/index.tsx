@@ -1,12 +1,12 @@
 import { useContext, createContext, useState, ReactNode } from "react";
 
 import emailjs from "@emailjs/browser";
-import { string } from "yup";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
+import {useAuth} from "../Auth"
 
 interface MessengerProviderData {
-  sendEmail: ( messenger:string, date:string, car: Car) => void;
+  sendEmail: ( messenger:string, date:string, car:CarSearch) => void;
   isOpemModalMessenger: boolean;
   isOpemModalMessengerFunction: () => void;
 }
@@ -15,28 +15,31 @@ interface MessengerProviderProps {
   children: ReactNode;
 }
 
-interface Car {
-  
-    name: string;
-    model: string;
-    description: string;
-    year: string;
-    km: string;
-    id?: number;
-    img: any;
-    pending: boolean;
-    available: boolean;
-    ownerId: string;
-    user?: User;
-  
-}
+/* interface SendEmailProps {
+  messenger:string;
+  date:string;
+  car:CarSearch;
+} */
 
 interface User {
-  email: string;
-  password: string;
   name: string;
-  age: number;
+  email: string;
   id: number;
+  password: string;
+  state: string;
+}
+interface CarSearch {
+  name: string;
+  model: string;
+  description: string;
+  year: string;
+  km: string;
+  id?: number;
+  img: any;
+  pending: boolean;
+  available: boolean;
+  userId: string;
+  user?:User
 }
 
 const MessengerContext = createContext<MessengerProviderData>(
@@ -44,9 +47,8 @@ const MessengerContext = createContext<MessengerProviderData>(
 );
 
 export const MessengerProider = ({ children }: MessengerProviderProps) => {
+  const {user} = useAuth();
   const [isOpemModalMessenger, SetIsOpemModalMessenger] = useState(false);
-  const [user, setuser] = useState<User>({} as User);
-  const [myUser, setMyUser] = useState<any>({});
 
   const isOpemModalMessengerFunction = () => {
     if (isOpemModalMessenger) {
@@ -56,12 +58,10 @@ export const MessengerProider = ({ children }: MessengerProviderProps) => {
     }
   };
 
-  const sendEmail = (messenger: string, date: string, car: Car) => {
+  const sendEmail = ( messenger:string, date:string, car:CarSearch) => {
     const accessToken = localStorage.getItem("@Capstone:accessToken") 
-    const myuser = localStorage.getItem("@Capstone:user") || null; 
-    setMyUser(myuser);
-    console.log(myUser)
-    api
+
+    /* api
       .get(`/users/${car.userId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -70,20 +70,21 @@ export const MessengerProider = ({ children }: MessengerProviderProps) => {
       .then((response) => {
         setuser(response.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error)); */
 
 
     const messengerObj = {
-      from_name: myUser.name,
-      to_name: user.name,
+      from_name: user.name,
+      to_name: car.user?.name,
       anuncio: car.name,
+      model: car.model,
       periodo: date,
+      from_email: car.user?.email,
       to_email: user.email,
-      from_email: myUser.email,
       messenger: messenger,
     };
     
-    console.log(messengerObj, myUser, user);
+    console.log(messengerObj, user, user);
     
      emailjs
       .send(

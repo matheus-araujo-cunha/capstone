@@ -19,21 +19,13 @@ interface ModalKnowMoreProps {
   handleClose: () => void;
   car: CarSearch;
 }
-interface Car {
-  name: string;
-  age: string;
-  km: string;
-  description: string;
-  propeietario: string;
-  userId: number;
-}
 
 interface User {
   name: string;
   email: string;
   id: number;
   password: string;
-  state?: string;
+  state: string;
 }
 interface CarSearch {
   name: string;
@@ -46,7 +38,7 @@ interface CarSearch {
   pending: boolean;
   available: boolean;
   userId: string;
-  user?: User;
+  user?:User
 }
 
 export const ModalKnowMore = ({
@@ -56,27 +48,7 @@ export const ModalKnowMore = ({
 }: ModalKnowMoreProps) => {
   const isWideVersion = UseMediaQuery("(min-width: 768px)");
 
-
-
   const { sendEmail, isOpemModalMessengerFunction } = useMessenger();
-  const [cars, setCars] = useState<Car>({
-    name: "Chevrolet Corsa 2.0",
-    age: "2018",
-    km: "80.000",
-    description: "1.4 MI STD 8V FLEX 3P MANUAL 1.4 MI STD 8V FLEX 3P MANUAL",
-    propeietario: "Willian Gustavo",
-    userId: 2,
-  });
-  
-  const email = {
-    from_name: "Willian",
-    to_name: "Giovana Pereira de Santana",
-    anuncio: "Silveirado 6c 4.2 Turbo 1999",
-    periodo: "10 dias",
-    email: "ra110059@uem.br",
-    from_email: "ra110059@uem.br",
-  };
-
 
   return (
     <Dialog
