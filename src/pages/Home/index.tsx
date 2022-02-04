@@ -25,8 +25,15 @@ export const Home = () => {
           <h1>Kenzie CarShop</h1>
         </div>
         <div className="buttons">
-          <button className="btn-cadastro">Cadastrar</button>
-          <button className="btn-login">Login</button>
+          <button
+            onClick={() => history.push("/signup")}
+            className="btn-cadastro"
+          >
+            Cadastrar
+          </button>
+          <button onClick={() => history.push("/signin")} className="btn-login">
+            Login
+          </button>
         </div>
       </ContainerMobile>
       <ContainerDesk>
@@ -36,8 +43,7 @@ export const Home = () => {
           </div>
           <div className="container-buttons">
             <Button
-              
-               className="btn-cadastro" 
+              className="btn-cadastro"
               onClick={() => history.push("/signup")}
             >
               Cadastro

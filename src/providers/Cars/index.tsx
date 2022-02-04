@@ -177,7 +177,13 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
         }
       );
 
-      setMyCars(response.data);
+      if (response.data.length !== 0) {
+        setMyCars(response.data);
+      } else {
+        const secondResponse = await api.get(`/cars?model_like=${nameMyCar}`);
+
+        setMyCars(secondResponse.data);
+      }
     },
     []
   );
@@ -254,12 +260,6 @@ export const CarsProviders = ({ children }: CarsProvidersProps) => {
         )
         .then((response) => {
           toast.success("Atualizado com sucesso!");
-          // const carsFiltered = cars.filter((car) => car.id !== data.id);
-          // const car = cars.find((car) => car.id === data.id);
-          // if (car) {
-          //   data.available = !data.available;
-          //   setCars([...carsFiltered, car]);
-          // }
         })
         .catch((err) => toast.error("Não foi possível atualizar!"));
     },
