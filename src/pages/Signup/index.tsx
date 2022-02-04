@@ -60,7 +60,7 @@ export const Signup = () => {
         toast.success("Cadastrado com sucesso!");
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("Email ja cadastrado!");
       });
   };
 

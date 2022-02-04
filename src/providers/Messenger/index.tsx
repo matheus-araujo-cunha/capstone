@@ -83,7 +83,6 @@ export const MessengerProider = ({ children }: MessengerProviderProps) => {
       messenger: messenger,
     };
 
-    console.log(messengerObj, user, user);
 
     emailjs
       .send(
@@ -95,7 +94,6 @@ export const MessengerProider = ({ children }: MessengerProviderProps) => {
       .then(
         (result) => {
           toast.success("Email Eviado com sucesso!");
-          console.log(result.text);
           isOpemModalMessengerFunction();
         },
         (error) => {

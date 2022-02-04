@@ -84,7 +84,6 @@ export const SearchCar = () => {
 
   const onSubmit = (data: SearchData) => {
     findCar(data.search, accessToken);
-    console.log(cars);
   };
 
   return (

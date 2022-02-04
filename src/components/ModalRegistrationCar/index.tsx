@@ -61,7 +61,6 @@ export const ModalRegistrationCar = ({
   });
 
   const onSubmit = (data: DataRegisterCar) => {
-    console.log(data);
     const newData = {
       ...data,
       available: true,
