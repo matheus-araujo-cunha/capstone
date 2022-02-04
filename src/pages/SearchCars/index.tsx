@@ -62,8 +62,6 @@ export const SearchCar = () => {
       filterByState(user.state);
     } else if (valueFilter === "20") {
       loadCars(accessToken);
-    } else {
-      loadCars(accessToken);
     }
   }, [valueFilter]);
 
@@ -74,10 +72,6 @@ export const SearchCar = () => {
   const handleOpenKnowMore = (car: CarSearch) => {
     setCarSelected(car);
     setOpenKnowMore(true);
-  };
-
-  const handleFilter = () => {
-    return valueFilter;
   };
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -156,8 +150,7 @@ export const SearchCar = () => {
                 <em></em>
               </MenuItem>
               <MenuItem value="10">Estado</MenuItem>
-              <MenuItem value="20">Ano do carro</MenuItem>
-              <MenuItem value="30">Limpar filtro</MenuItem>
+              <MenuItem value="20">Limpar filtro</MenuItem>
             </Select>
           </FormControl>
         </Box>

@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField } from "@mui/material";
-import {useHistory} from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import img from "../../assets/login.png";
 import {
   Form,
@@ -39,7 +39,6 @@ const Login = () => {
   });
   const history = useHistory();
   const onSubmitFunction = (data: SignInCredentials) => {
-    
     signIn(data);
     // setTimeout(function () {
     //   window.location.reload();
@@ -49,7 +48,7 @@ const Login = () => {
 
   return (
     <Content>
-      <img src={img}/>
+      <img src={img} />
       <Container>
         <Main> Kenzie </Main>
         <Second> Carshop</Second>

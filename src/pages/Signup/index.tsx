@@ -18,6 +18,7 @@ import { Button } from "../../components/Button";
 import img from "../../assets/register.svg";
 import logo from "../../assets/logo.png";
 import { api } from "../../services/api";
+import { toast } from "react-toastify";
 
 interface SignInCredentials {
   name: string;
@@ -30,7 +31,6 @@ interface SignInCredentials {
 
 export const Signup = () => {
   const history = useHistory();
-  // const { signIn } = useAuth();
 
   const formSchema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
@@ -56,7 +56,8 @@ export const Signup = () => {
     api
       .post("/register", data)
       .then((response) => {
-        history.push("./signin");
+        history.push("/signin");
+        toast.success("Cadastrado com sucesso!");
       })
       .catch((err) => {
         console.log(err);
@@ -71,7 +72,7 @@ export const Signup = () => {
             <div className="title-1">Kenzie</div>
             <div className="title-2">CarShop</div>
           </section>
-            <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" />
         </Title>
         <Form onSubmit={handleSubmit(onSubmitFunction)}>
           <Text>
@@ -143,7 +144,7 @@ export const Signup = () => {
             {errors.check?.message && <span>{errors.check?.message}</span>}
           </Error>
           <Button type="submit" color="1">
-            Logar
+            Cadastrar
           </Button>
         </Form>
       </ContainerForm>
